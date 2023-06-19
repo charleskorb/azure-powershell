@@ -17,6 +17,9 @@ Disconnect a userSession.
 ### [Expand-AzWvdMsixImage](Expand-AzWvdMsixImage.md)
 Expands and Lists MSIX packages in an Image, given the Image Path.
 
+### [Get-AzWvdAppAttachPackage](Get-AzWvdAppAttachPackage.md)
+Get a msixpackage.
+
 ### [Get-AzWvdApplication](Get-AzWvdApplication.md)
 Get an application.
 
@@ -34,6 +37,12 @@ Registration token of the host pool.
 
 ### [Get-AzWvdMsixPackage](Get-AzWvdMsixPackage.md)
 Get a msixpackage.
+
+### [Get-AzWvdPrivateEndpointConnection](Get-AzWvdPrivateEndpointConnection.md)
+Get a private endpoint connection.
+
+### [Get-AzWvdPrivateLinkResource](Get-AzWvdPrivateLinkResource.md)
+List the private link resources available for this hostpool.
 
 ### [Get-AzWvdRegistrationInfo](Get-AzWvdRegistrationInfo.md)
 Get the Windows virtual desktop registration info.
@@ -55,6 +64,9 @@ Get a userSession.
 
 ### [Get-AzWvdWorkspace](Get-AzWvdWorkspace.md)
 Get a workspace.
+
+### [New-AzWvdAppAttachPackage](New-AzWvdAppAttachPackage.md)
+Create or update an App Attach package.
 
 ### [New-AzWvdApplication](New-AzWvdApplication.md)
 Create or update an application.
@@ -83,6 +95,9 @@ Create or update a workspace.
 ### [Register-AzWvdApplicationGroup](Register-AzWvdApplicationGroup.md)
 Register a Windows virtual desktop application group.
 
+### [Remove-AzWvdAppAttachPackage](Remove-AzWvdAppAttachPackage.md)
+Remove an App Attach Package.
+
 ### [Remove-AzWvdApplication](Remove-AzWvdApplication.md)
 Remove an application.
 
@@ -94,6 +109,9 @@ Remove a host pool.
 
 ### [Remove-AzWvdMsixPackage](Remove-AzWvdMsixPackage.md)
 Remove an MSIX Package.
+
+### [Remove-AzWvdPrivateEndpointConnection](Remove-AzWvdPrivateEndpointConnection.md)
+Remove a connection.
 
 ### [Remove-AzWvdRegistrationInfo](Remove-AzWvdRegistrationInfo.md)
 Remove the Windows virtual desktop registration info.
@@ -118,6 +136,9 @@ Send a message to a user.
 
 ### [Unregister-AzWvdApplicationGroup](Unregister-AzWvdApplicationGroup.md)
 Unregister the Windows virtual desktop application group.
+
+### [Update-AzWvdAppAttachPackage](Update-AzWvdAppAttachPackage.md)
+Update an App Attach Package
 
 ### [Update-AzWvdApplication](Update-AzWvdApplication.md)
 Update an application.

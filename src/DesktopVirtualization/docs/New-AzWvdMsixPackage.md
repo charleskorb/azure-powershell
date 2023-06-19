@@ -16,7 +16,7 @@ Create or update a MSIX package.
 ```
 New-AzWvdMsixPackage -FullName <String> -HostPoolName <String> -ResourceGroupName <String>
  [-DisplayName <String>] [-ImagePath <String>] [-IsActive] [-IsRegularRegistration] [-SubscriptionId <String>]
- [-LastUpdated <DateTime>] [-PackageApplication <IMsixPackageApplications[]>]
+ [-HostPoolReference <String[]>] [-LastUpdated <DateTime>] [-PackageApplication <IMsixPackageApplications[]>]
  [-PackageDependency <IMsixPackageDependencies[]>] [-PackageFamilyName <String>] [-PackageName <String>]
  [-PackageRelativePath <String>] [-Version <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf]
  [<CommonParameters>]
@@ -78,8 +78,7 @@ This command adds MSIX Package in the specified HostPool
 ## PARAMETERS
 
 ### -DefaultProfile
-The DefaultProfile parameter is not functional.
-Use the SubscriptionId parameter when available if executing the cmdlet against a different subscription.
+The credentials, account, tenant, and subscription used for communication with Azure.
 
 ```yaml
 Type: System.Management.Automation.PSObject
@@ -132,6 +131,21 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -HostPoolReference
+List of Hostpool resource Ids.
+
+```yaml
+Type: System.String[]
+Parameter Sets: CreateExpanded
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -219,7 +233,7 @@ List of package applications.
 To construct, see NOTES section for PACKAGEAPPLICATION properties and create a hash table.
 
 ```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IMsixPackageApplications[]
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.IMsixPackageApplications[]
 Parameter Sets: CreateExpanded
 Aliases:
 
@@ -236,7 +250,7 @@ List of package dependencies.
 To construct, see NOTES section for PACKAGEDEPENDENCY properties and create a hash table.
 
 ```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IMsixPackageDependencies[]
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.IMsixPackageDependencies[]
 Parameter Sets: CreateExpanded
 Aliases:
 
@@ -377,7 +391,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IMsixPackage
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.IMsixPackage
 
 ## NOTES
 
@@ -388,7 +402,7 @@ COMPLEX PARAMETER PROPERTIES
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 
-`PACKAGEAPPLICATION <IMsixPackageApplications[]>`: List of package applications. 
+PACKAGEAPPLICATION <IMsixPackageApplications[]>: List of package applications. 
   - `[AppId <String>]`: Package Application Id, found in appxmanifest.xml.
   - `[AppUserModelId <String>]`: Used to activate Package Application. Consists of Package Name and ApplicationID. Found in appxmanifest.xml.
   - `[Description <String>]`: Description of Package Application.
@@ -397,7 +411,7 @@ To create the parameters described below, construct a hash table containing the 
   - `[RawIcon <Byte[]>]`: the icon a 64 bit string as a byte array.
   - `[RawPng <Byte[]>]`: the icon a 64 bit string as a byte array.
 
-`PACKAGEDEPENDENCY <IMsixPackageDependencies[]>`: List of package dependencies. 
+PACKAGEDEPENDENCY <IMsixPackageDependencies[]>: List of package dependencies. 
   - `[DependencyName <String>]`: Name of package dependency.
   - `[MinVersion <String>]`: Dependency version required.
   - `[Publisher <String>]`: Name of dependency publisher.
