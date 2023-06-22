@@ -52,13 +52,13 @@ New-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String>
 ```
 New-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String>
  -FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure> -ImagePath <String>
- -LastUpdated <DateTime> -Location <String> -PackageApplication <IMsixPackageApplications[]>
- -PackageFamilyName <String> -PackageFullName <String> -PackageName <String> -PackageRelativePath <String>
- -Version <String> [-PackageAlias <String>] [-SubscriptionId <String>] [-CertificateExpiry <DateTime>]
- [-CertificateName <String>] [-DisplayName <String>] [-HostPoolReference <String[]>] [-IsActive]
- [-IsLogonBlocking] [-KeyVaultUrl <String>] [-PackageDependency <IMsixPackageDependencies[]>]
- [-PermissionsToAdd <String[]>] [-PermissionsToRemove <String[]>] [-Tag <Hashtable>]
- [-DefaultProfile <PSObject>] [<CommonParameters>]
+ -LastUpdated <DateTime> -Location <String> -PackageFamilyName <String> -PackageFullName <String>
+ -PackageName <String> -PackageRelativePath <String> -Version <String> [-PackageAlias <String>]
+ [-SubscriptionId <String>] [-CertificateExpiry <DateTime>] [-CertificateName <String>]
+ [-DisplayName <String>] [-HostPoolReference <String[]>] [-IsActive] [-IsLogonBlocking]
+ [-KeyVaultUrl <String>] [-PackageApplication <IMsixPackageApplications[]>]
+ [-PackageDependency <IMsixPackageDependencies[]>] [-PermissionsToAdd <String[]>]
+ [-PermissionsToRemove <String[]>] [-Tag <Hashtable>] [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -66,28 +66,123 @@ Create or update an App Attach package.
 
 ## EXAMPLES
 
-### Example 1: {{ Add title here }}
+### Example 1: Create an Azure Virtual Desktop app attach package by name
 ```powershell
-PS C:\> {{ Add code here }}
+    $apps = "<PackagedApplication>"
+    $deps = "<PackageDependencies>"
+    New-AzWvdAppAttachPackage -Name PackageArmObjectName `
+                         -ResourceGroupName ResourceGroupName `
+                         -SubscriptionId SubscriptionId `
+                         -Location location
+                         -ImageDisplayName displayname `
+                         -ImagePath imageURI `
+                         -ImageIsActive:$false `
+                         -ImageIsRegularRegistration:$false `
+                         -ImageLastUpdated datelastupdated `
+                         -ImagePackageApplication $apps `
+                         -ImagePackageDependency $deps `
+                         -ImagePackageFamilyName packagefamilyname `
+                         -ImagePackageName packagename `
+                         -ImagePackageFullName packagefullname `
+                         -ImagePackageRelativePath packagerelativepath `
+                         -ImageVersion packageversion `
+                         -ImageCertificateExpiry certificateExpiry `
+                         -ImageCertificateName certificateName `
+                         -KeyVaultUrl keyvaultUrl `
+                         -FailHealthCheckOnStagingFailure 'Unhealthy'
 
-{{ Add output here }}
+Location   Name                 Type
+--------   ----                 ----
+eastus     PackageArmObjectName Microsoft.DesktopVirtualization/appattachpackages
 ```
 
-{{ Add description here }}
+This command creates or updates an Azure Virtual Desktop App attach package in a resource group
 
-### Example 2: {{ Add title here }}
+### Example 2: Create an Azure Virtual Desktop app attach package by name
 ```powershell
-PS C:\> {{ Add code here }}
+    $apps = "<PackagedApplication>"
+    $deps = "<PackageDependencies>"
+    New-AzWvdAppAttachPackage -Name PackageArmObjectName `
+                         -ResourceGroupName ResourceGroupName `
+                         -SubscriptionId SubscriptionId `
+                         -Location location `
+                         -DisplayName displayname `
+                         -ImagePath imageURI `
+                         -IsActive:$false `
+                         -IsLogonBlocking:$false `
+                         -LastUpdated datelastupdated `
+                         -PackageApplication $apps `
+                         -PackageDependency $deps `
+                         -PackageFamilyName packagefamilyname `
+                         -PackageName packagename `
+                         -PackageFullName packagefullname
+                         -PackageRelativePath packagerelativepath `
+                         -Version packageversion `
+                         -CertificateExpiry certificateExpiry `
+                         -CertificateName certificateName `
+                         -KeyVaultUrl keyvaultUrl `
+                         -FailHealthCheckOnStagingFailure 'Unhealthy' `
+                         -HostpoolReference hostpoolReference `
+                         -PermissionsToAdd permissionsToAdd
 
-{{ Add output here }}
+Location   Name                 Type
+--------   ----                 ----
+eastus     PackageArmObjectName Microsoft.DesktopVirtualization/appattachpackages
 ```
 
-{{ Add description here }}
+This command creates or updates an Azure Virtual Desktop App attach package in a resource group, adding permissions to it from the object ids specifed
+
+### Example 3: Create an Azure Virtual Desktop app attach package by image object
+```powershell
+New-AzWvdAppAttachPackage -Name PackageArmObjectName `
+                         -ResourceGroupName ResourceGroupName `
+                         -SubscriptionId SubscriptionId `
+                         -Location location `
+                         -DisplayName displayname `
+                         -ImageObject imageObject `
+                         -IsActive:$false `
+                         -IsLogonBlocking:$false `
+                         -KeyVaultUrl keyvaultUrl `
+                         -FailHealthCheckOnStagingFailure 'Unhealthy' `
+                         -HostpoolReference hostpoolReference `
+                         -PermissionsToAdd permissionsToAdd
+
+Location   Name                 Type
+--------   ----                 ----
+eastus     PackageArmObjectName Microsoft.DesktopVirtualization/appattachpackages
+```
+
+This command creates or updates an Azure Virtual Desktop App Attach Package in a resource group using the output of the Expand-AzWvdMsixImage command, adding permissions to it from the object ids specifed
+
+### Example 4: Create an Azure Virtual Desktop app attach package by an image which is expanded as part of the creation process
+```powershell
+New-AzWvdAppAttachPackage -Name PackageArmObjectName `
+                         -ResourceGroupName ResourceGroupName `
+                         -SubscriptionId SubscriptionId `
+                         -ExpandingHostpoolSubscriptionId hpsubscriptionid `
+                         -ExpandingHostpoolResourceGroupName hpresourcegroupname `
+                         -ExpandingHostpoolName hostpoolname `
+                         -Location location `
+                         -DisplayName displayname `
+                         -ImagePath imageURI `
+                         -IsActive:$false `
+                         -IsLogonBlocking:$false `
+                         -KeyVaultUrl keyvaultUrl `
+                         -FailHealthCheckOnStagingFailure 'Unhealthy' `
+                         -HostpoolReference hostpoolReference `
+                         -PermissionsToAdd permissionsToAdd
+
+Location   Name                 Type
+--------   ----                 ----
+eastus     PackageArmObjectName Microsoft.DesktopVirtualization/appattachpackages
+```
+
+This command expands the image of an Azure Virtual Desktop App Attach Package and then creates that object in a resource group, adding permissions to it from the object ids specifed
 
 ## PARAMETERS
 
 ### -CertificateExpiry
-
+Date certificate expires, extracted from p7x file in package.
 
 ```yaml
 Type: System.DateTime
@@ -102,7 +197,7 @@ Accept wildcard characters: False
 ```
 
 ### -CertificateName
-
+Name of certificate, extracted from p7x file in package.
 
 ```yaml
 Type: System.String
@@ -132,7 +227,7 @@ Accept wildcard characters: False
 ```
 
 ### -DisplayName
-
+User friendly Name to be displayed in the portal
 
 ```yaml
 Type: System.String
@@ -147,7 +242,7 @@ Accept wildcard characters: False
 ```
 
 ### -ExpandingHostpoolName
-
+Name of hostpool doing the package expansion
 
 ```yaml
 Type: System.String
@@ -162,7 +257,7 @@ Accept wildcard characters: False
 ```
 
 ### -ExpandingHostpoolResourceGroupName
-
+Resource Group name for hostpool doing the package expansion
 
 ```yaml
 Type: System.String
@@ -177,7 +272,7 @@ Accept wildcard characters: False
 ```
 
 ### -ExpandingHostpoolSubscriptionId
-
+Subscription id for hostpool doing the package expansion
 
 ```yaml
 Type: System.String
@@ -467,7 +562,7 @@ Accept wildcard characters: False
 ```
 
 ### -IsActive
-
+Make this version of the package the active one across the hostpools it is associated with.
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
@@ -482,7 +577,7 @@ Accept wildcard characters: False
 ```
 
 ### -IsLogonBlocking
-
+Specifies if the package should be registered during logon or on click
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
@@ -512,7 +607,7 @@ Accept wildcard characters: False
 ```
 
 ### -LastUpdated
-
+Date Package was last updated, found in the appxmanifest.xml.
 
 ```yaml
 Type: System.DateTime
@@ -572,6 +667,7 @@ Accept wildcard characters: False
 ```
 
 ### -PackageApplication
+List of package applications.
 To construct, see NOTES section for PACKAGEAPPLICATION properties and create a hash table.
 
 ```yaml
@@ -579,7 +675,7 @@ Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api2022090
 Parameter Sets: Improved
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -587,6 +683,7 @@ Accept wildcard characters: False
 ```
 
 ### -PackageDependency
+List of package dependencies.
 To construct, see NOTES section for PACKAGEDEPENDENCY properties and create a hash table.
 
 ```yaml
@@ -602,7 +699,7 @@ Accept wildcard characters: False
 ```
 
 ### -PackageFamilyName
-
+Package Family Name from appxmanifest.xml; contains package name and publisher name
 
 ```yaml
 Type: System.String
@@ -617,7 +714,7 @@ Accept wildcard characters: False
 ```
 
 ### -PackageFullName
-
+Package Full Name from appxmanifest.xml.
 
 ```yaml
 Type: System.String
@@ -632,7 +729,7 @@ Accept wildcard characters: False
 ```
 
 ### -PackageName
-
+Package Name from appxmanifest.xml.
 
 ```yaml
 Type: System.String
@@ -647,7 +744,7 @@ Accept wildcard characters: False
 ```
 
 ### -PackageRelativePath
-
+Relative Path to the package inside the image.
 
 ```yaml
 Type: System.String
@@ -662,7 +759,7 @@ Accept wildcard characters: False
 ```
 
 ### -PermissionsToAdd
-
+List of object ids to add permissions to the package
 
 ```yaml
 Type: System.String[]
@@ -677,7 +774,7 @@ Accept wildcard characters: False
 ```
 
 ### -PermissionsToRemove
-
+List of object ids to remove permissions from the package
 
 ```yaml
 Type: System.String[]
@@ -828,7 +925,7 @@ Accept wildcard characters: False
 ```
 
 ### -Version
-
+Package Version found in the appxmanifest.xml.
 
 ```yaml
 Type: System.String
@@ -932,7 +1029,7 @@ IMAGEPACKAGEDEPENDENCY <IMsixPackageDependencies[]>: List of package dependencie
   - `[MinVersion <String>]`: Dependency version required.
   - `[Publisher <String>]`: Name of dependency publisher.
 
-PACKAGEAPPLICATION <IMsixPackageApplications[]>: 
+PACKAGEAPPLICATION <IMsixPackageApplications[]>: List of package applications.
   - `[AppId <String>]`: Package Application Id, found in appxmanifest.xml.
   - `[AppUserModelId <String>]`: Used to activate Package Application. Consists of Package Name and ApplicationID. Found in appxmanifest.xml.
   - `[Description <String>]`: Description of Package Application.
@@ -941,7 +1038,7 @@ PACKAGEAPPLICATION <IMsixPackageApplications[]>:
   - `[RawIcon <Byte[]>]`: the icon a 64 bit string as a byte array.
   - `[RawPng <Byte[]>]`: the icon a 64 bit string as a byte array.
 
-PACKAGEDEPENDENCY <IMsixPackageDependencies[]>: 
+PACKAGEDEPENDENCY <IMsixPackageDependencies[]>: List of package dependencies.
   - `[DependencyName <String>]`: Name of package dependency.
   - `[MinVersion <String>]`: Dependency version required.
   - `[Publisher <String>]`: Name of dependency publisher.

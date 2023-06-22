@@ -29,19 +29,19 @@ function Update-AzWvdAppAttachPackage_Improved {
         # The geo-location where the resource lives
         ${Location},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'Date certificate expires, extracted from p7x file in package.')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.DateTime]
         # Date certificate expires, found in the appxmanifest.xml.
         ${CertificateExpiry},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'Name of certificate, extracted from p7x file in package.')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         # Certificate name found in the appxmanifest.xml.
         ${CertificateName},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'User friendly Name to be displayed in the portal.')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         # User friendly Name to be displayed in the portal.
@@ -67,13 +67,13 @@ function Update-AzWvdAppAttachPackage_Improved {
         # VHD/CIM image path on Network Share.
         ${ImagePath},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'Make this version of the package the active one across the hostpool.')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.Management.Automation.SwitchParameter]
         # Make this version of the package the active one across the hostpool.
         ${IsActive},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'Specifies how to register Package in feed.')]
         [Alias("IsRegularRegistration")]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.Management.Automation.SwitchParameter]
@@ -86,19 +86,19 @@ function Update-AzWvdAppAttachPackage_Improved {
         # URL of keyvault location to store certificate
         ${KeyVaultUrl},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'Date Package was last updated, found in the appxmanifest.xml.')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.DateTime]
         # Date Package was last updated, found in the appxmanifest.xml.
         ${LastUpdated},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'Alias of MSIX Package.')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         # Alias of MSIX Package.
         ${PackageAlias},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'List of package applications.')]
         [AllowEmptyCollection()]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.IMsixPackageApplications[]]
@@ -107,7 +107,7 @@ function Update-AzWvdAppAttachPackage_Improved {
         # To construct, see NOTES section for PACKAGEAPPLICATION properties and create a hash table.
         ${PackageApplication},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'List of package dependencies.')]
         [AllowEmptyCollection()]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.IMsixPackageDependencies[]]
@@ -116,38 +116,38 @@ function Update-AzWvdAppAttachPackage_Improved {
         # To construct, see NOTES section for PACKAGEDEPENDENCY properties and create a hash table.
         ${PackageDependency},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'Package Family Name from appxmanifest.xml; contains package name and publisher name')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         # Package Family Name from appxmanifest.xml.
         # Contains Package Name and Publisher name.
         ${PackageFamilyName},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'Package Full Name from appxmanifest.xml.')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         # Package Full Name from appxmanifest.xml.
         ${PackageFullName},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'Package Name from appxmanifest.xml.')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         # Package Name from appxmanifest.xml.
         ${PackageName},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'Relative Path to the package inside the image.')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         # Relative Path to the package inside the image.
         ${PackageRelativePath},
 
-        [Parameter()]
+        [Parameter(HelpMessage = 'List of object ids to remove permissions from the package')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String[]]
         #List of object ids to remove permissions for
         ${PermissionsToRemove},
 
-        [Parameter()]
+        [Parameter(HelpMessage = 'List of object ids to add permissions to the package')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String[]]
         #List of object ids to Add permissions for
@@ -160,7 +160,7 @@ function Update-AzWvdAppAttachPackage_Improved {
         # Resource tags.
         ${Tag},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'Package Version found in the appxmanifest.xml.')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         # Package Version found in the appxmanifest.xml.

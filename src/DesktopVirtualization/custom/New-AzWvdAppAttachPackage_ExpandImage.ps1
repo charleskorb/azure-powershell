@@ -29,22 +29,22 @@ function New-AzWvdAppAttachPackage_ExpandImage {
         # The geo-location where the resource lives
         ${Location},
     
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, HelpMessage = 'Subscription id for hostpool doing the package expansion')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         ${ExpandingHostpoolSubscriptionId},
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, HelpMessage = 'Resource Group name for hostpool doing the package expansion')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         ${ExpandingHostpoolResourceGroupName},
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, HelpMessage = 'Name of hostpool doing the package expansion')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         ${ExpandingHostpoolName},
 
-        [Parameter()]
+        [Parameter(HelpMessage = 'User friendly Name to be displayed in the portal')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         # User friendly Name to be displayed in the portal.
@@ -74,13 +74,13 @@ function New-AzWvdAppAttachPackage_ExpandImage {
         # List of Hostpool resource Ids.
         ${HostPoolReference},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'Make this version of the package the active one across the hostpools it is associated with.')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.Management.Automation.SwitchParameter]
         # Make this version of the package the active one across the hostpool.
         ${IsActive},
     
-        [Parameter()]
+        [Parameter(HelpMessage = 'Specifies if the package should be registered during logon or on click')]
         [Alias("IsRegularRegistration")]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.Management.Automation.SwitchParameter]
@@ -93,14 +93,14 @@ function New-AzWvdAppAttachPackage_ExpandImage {
         # URL of keyvault location to store certificate
         ${KeyVaultUrl},
 
-        [Parameter()]
+        [Parameter(HelpMessage = 'List of object ids to remove permissions from the package')]
         [AllowEmptyCollection()]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String[]]
         #List of object ids to remove permissions for
         ${PermissionsToRemove},
 
-        [Parameter()]
+        [Parameter(HelpMessage = 'List of object ids to add permissions to the package')]
         [AllowEmptyCollection()]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String[]]

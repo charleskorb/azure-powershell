@@ -41,23 +41,52 @@ Get a msixpackage.
 
 ## EXAMPLES
 
-### Example 1: {{ Add title here }}
+### Example 1: Get an Azure Virtual Desktop App Attach Package by Name
 ```powershell
-PS C:\> {{ Add code here }}
+Get-AzWvdAppAttachPackage -SubscriptionId subscriptionId -ResourceGroupName resourceGroupName -Name packageName1
 
-{{ Add output here }}
+Location   Name          Type
+--------   ----          ----
+eastus     packageName1  Microsoft.DesktopVirtualization/appattachpackages
 ```
 
-{{ Add description here }}
+This command gets an Azure Virtual Desktop App Attach Packages by name.
 
-### Example 2: {{ Add title here }}
+### Example 2: List all Azure Virtual Desktop App Attach Packages in a resource group
 ```powershell
-PS C:\> {{ Add code here }}
+Get-AzWvdAppAttachPackage -SubscriptionId subscriptionId -ResourceGroupName resourceGroupName
 
-{{ Add output here }}
+Location   Name          Type
+--------   ----          ----
+eastus     packageName1  Microsoft.DesktopVirtualization/appattachpackages
+eastus     packageName2  Microsoft.DesktopVirtualization/appattachpackages
 ```
 
-{{ Add description here }}
+This command lists Azure Virtual Desktop App Attach Packages in a resource group.
+
+### Example 3: List all Azure Virtual Desktop App Attach Packages in a specified subscription
+```powershell
+Get-AzWvdAppAttachPackage -SubscriptionId subscriptionId
+
+Location   Name          Type
+--------   ----          ----
+eastus     packageName1  Microsoft.DesktopVirtualization/appattachpackages
+eastus     packageName2  Microsoft.DesktopVirtualization/appattachpackages
+```
+
+This command lists Azure Virtual Desktop App Attach Packages in a subscription.
+
+### Example 3: List all Azure Virtual Desktop App Attach Packages in the current subscription
+```powershell
+Get-AzWvdAppAttachPackage
+
+Location   Name          Type
+--------   ----          ----
+eastus     packageName1  Microsoft.DesktopVirtualization/appattachpackages
+eastus     packageName2  Microsoft.DesktopVirtualization/appattachpackages
+```
+
+This command lists Azure Virtual Desktop App Attach Packages in a subscription.
 
 ## PARAMETERS
 
