@@ -30,13 +30,12 @@ New-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -Location <
 
 ### ExpandImage
 ```
-New-AzWvdAppAttachPackage -Name <String> -PackageAlias <String> -ResourceGroupName <String>
- -ExpandingHostpoolName <String> -ExpandingHostpoolResourceGroupName <String>
- -ExpandingHostpoolSubscriptionId <String> -FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure>
- -ImagePath <String> -Location <String> [-SubscriptionId <String>] [-DisplayName <String>]
- [-HostPoolReference <String[]>] [-IsActive] [-IsLogonBlocking] [-KeyVaultUrl <String>]
- [-PermissionsToAdd <String[]>] [-PermissionsToRemove <String[]>] [-Tag <Hashtable>]
- [-DefaultProfile <PSObject>] [<CommonParameters>]
+New-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -ExpandingHostpoolName <String>
+ -ExpandingHostpoolResourceGroupName <String> -ExpandingHostpoolSubscriptionId <String>
+ -FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure> -ImagePath <String> -Location <String>
+ [-SubscriptionId <String>] [-DisplayName <String>] [-HostPoolReference <String[]>] [-IsActive]
+ [-IsLogonBlocking] [-KeyVaultUrl <String>] [-PackageAlias <String>] [-PermissionsToAdd <String[]>]
+ [-PermissionsToRemove <String[]>] [-Tag <Hashtable>] [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
 ### ImageObject
@@ -53,10 +52,10 @@ New-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String>
 New-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String>
  -FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure> -ImagePath <String>
  -LastUpdated <DateTime> -Location <String> -PackageFamilyName <String> -PackageFullName <String>
- -PackageName <String> -PackageRelativePath <String> -Version <String> [-PackageAlias <String>]
- [-SubscriptionId <String>] [-CertificateExpiry <DateTime>] [-CertificateName <String>]
- [-DisplayName <String>] [-HostPoolReference <String[]>] [-IsActive] [-IsLogonBlocking]
- [-KeyVaultUrl <String>] [-PackageApplication <IMsixPackageApplications[]>]
+ -PackageName <String> -PackageRelativePath <String> -Version <String> [-SubscriptionId <String>]
+ [-CertificateExpiry <DateTime>] [-CertificateName <String>] [-DisplayName <String>]
+ [-HostPoolReference <String[]>] [-IsActive] [-IsLogonBlocking] [-KeyVaultUrl <String>]
+ [-PackageAlias <String>] [-PackageApplication <IMsixPackageApplications[]>]
  [-PackageDependency <IMsixPackageDependencies[]>] [-PermissionsToAdd <String[]>]
  [-PermissionsToRemove <String[]>] [-Tag <Hashtable>] [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
@@ -154,7 +153,7 @@ eastus     PackageArmObjectName Microsoft.DesktopVirtualization/appattachpackage
 
 This command creates or updates an Azure Virtual Desktop App Attach Package in a resource group using the output of the Expand-AzWvdMsixImage command, adding permissions to it from the object ids specifed
 
-### Example 4: Create an Azure Virtual Desktop app attach package by an image which is expanded as part of the creation process
+### Example 4: Create an Azure Virtual Desktop app attach package by an image which is expanded as part of the creation process. Requires the package alias to indicate which package in the image you want to expand. If it is not provided, if there is only one package in the image it will add that, if there are more than one it will add the x64 one, and if there is more than one x64 package it will throw an exception
 ```powershell
 New-AzWvdAppAttachPackage -Name PackageArmObjectName `
                          -ResourceGroupName ResourceGroupName `
@@ -162,6 +161,7 @@ New-AzWvdAppAttachPackage -Name PackageArmObjectName `
                          -ExpandingHostpoolSubscriptionId hpsubscriptionid `
                          -ExpandingHostpoolResourceGroupName hpresourcegroupname `
                          -ExpandingHostpoolName hostpoolname `
+                         -PackageAlias alias `
                          -Location location `
                          -DisplayName displayname `
                          -ImagePath imageURI `
@@ -659,7 +659,7 @@ Type: System.String
 Parameter Sets: ExpandImage, Improved
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

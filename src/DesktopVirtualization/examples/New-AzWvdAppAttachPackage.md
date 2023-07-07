@@ -87,7 +87,7 @@ eastus     PackageArmObjectName Microsoft.DesktopVirtualization/appattachpackage
 This command creates or updates an Azure Virtual Desktop App Attach Package in a resource group using the output of the Expand-AzWvdMsixImage command, adding permissions to it from the object ids specifed
 
 
-### Example 4: Create an Azure Virtual Desktop app attach package by an image which is expanded as part of the creation process
+### Example 4: Create an Azure Virtual Desktop app attach package by an image which is expanded as part of the creation process. Requires the package alias to indicate which package in the image you want to expand. If it is not provided, if there is only one package in the image it will add that, if there are more than one it will add the x64 one, and if there is more than one x64 package it will throw an exception
 ```powershell
 New-AzWvdAppAttachPackage -Name PackageArmObjectName `
                          -ResourceGroupName ResourceGroupName `
@@ -95,6 +95,7 @@ New-AzWvdAppAttachPackage -Name PackageArmObjectName `
                          -ExpandingHostpoolSubscriptionId hpsubscriptionid `
                          -ExpandingHostpoolResourceGroupName hpresourcegroupname `
                          -ExpandingHostpoolName hostpoolname `
+                         -PackageAlias alias `
                          -Location location `
                          -DisplayName displayname `
                          -ImagePath imageURI `

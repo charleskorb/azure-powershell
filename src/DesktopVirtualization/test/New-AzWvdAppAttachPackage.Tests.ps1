@@ -176,4 +176,40 @@ Describe 'New-AzWvdAppAttachPackage' {
                 -SubscriptionId $env.SubscriptionId 
         }
     }
+    It 'ExpandImageNoAlias' {
+        try {
+
+            $image = Expand-AzWvdMsixImage -HostPoolName $env.HostPoolPersistent2 `
+                -ResourceGroupName $env.ResourceGroupPersistent `
+                -SubscriptionId $env.SubscriptionId `
+                -Uri $env.MSIXImagePath
+
+            $package = New-AzWvdAppAttachPackage `
+                -ImagePath 'C:\AppAttach\Firefox20110.0.1.vhdx' `
+                -ExpandingHostPoolName $env.HostPoolPersistent2 `
+                -ExpandingHostpoolResourceGroupName $env.ResourceGroupPersistent `
+                -ExpandingHostpoolSubscriptionId $env.SubscriptionId  `
+                -Name "TestPackage" `
+                -ResourceGroupName $env.ResourceGroupPersistent `
+                -SubscriptionId $env.SubscriptionId `
+                -Location $env.Location `
+                -FailHealthCheckOnStagingFailure 'Unhealthy'
+
+            $packages = Get-AzWvdAppAttachPackage -Name "TestPackage"`
+                -ResourceGroupName $env.ResourceGroupPersistent `
+                -SubscriptionId $env.SubscriptionId  
+                
+            $packages[0].ImagePackageFamilyName | Should -Be  'Mozilla.MozillaFirefox_gmpnhwe7bv608'
+            $packages[0].ImagePath | Should -Be 'C:\AppAttach\Firefox20110.0.1.vhdx'
+            $packages[0].ImagePackageName | Should -Be 'Mozilla.MozillaFirefox'
+            $packages[0].ImagePackageRelativePath | Should -Be '\apps\Mozilla.MozillaFirefox_110.0.1.0_x64__gmpnhwe7bv608'
+            ($packages[0].ImagePackageApplication | ConvertTo-Json) | Should -Be ($image.PackageApplication | ConvertTo-Json)
+
+        }
+        finally{
+            Remove-AzWvdAppAttachPackage -Name 'TestPackage' `
+                -ResourceGroupName $env.ResourceGroupPersistent `
+                -SubscriptionId $env.SubscriptionId 
+        }
+    }
 }

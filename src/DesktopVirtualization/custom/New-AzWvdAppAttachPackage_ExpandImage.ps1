@@ -55,8 +55,8 @@ function New-AzWvdAppAttachPackage_ExpandImage {
         [System.String]
         ${ImagePath},
 
-        [Parameter(Mandatory, HelpMessage = 'Package Alias from extract MSIX Image')]
-        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Path')]
+        [Parameter(HelpMessage = 'Package Alias from extract MSIX Image')]
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         ${PackageAlias},
 
@@ -246,10 +246,34 @@ function New-AzWvdAppAttachPackage_ExpandImage {
             $createParameters.Add($key, $PSBoundParameters[$key])
         }
 
-        $ImageObject = Expand-AzWvdMsixImage @expandParams -SubscriptionId $expandSubscription `
+        $ImageList = Expand-AzWvdMsixImage @expandParams -SubscriptionId $expandSubscription `
             -ResourceGroupName $expandResourceGroup -HostPoolName $expandHostpoolName `
             -Uri $ImagePath
-        | Where-Object { $_.PackageAlias -eq $PackageAlias }
+        if ($null -eq $ImageList -or $ImageList.Count -eq 0) {
+            throw "No Image objects returned from expansion"
+        }
+        elseif ($null -ne $PackageAlias -and "" -ne $PackageAlias) {
+            $ImageObject = $ImageList | Where-Object { $_.PackageAlias -eq $PackageAlias }
+        }
+        elseif ($ImageList.Count -eq 1) {
+            $ImageObject = $ImageList[0]    
+        }
+        else {
+            $x64Count = 0
+            foreach($Image in $ImageList) {
+                if ($Image.PackageFullName -contains "x64") {
+                    $x64Count++
+                    $ImageObject = $Image
+                }
+            }
+            if ($x64Count -gt 1) {
+                throw "More than one x64 image in provided virtual disk, please specify package alias choose between them"
+            }
+            if ($x64Count -lt 1) {
+                throw "No x64 images found in provided virtual disk, please specify package alias choose the image you want"
+            }
+        }
+        
 
         $createParameters.Add("ImageObject", $ImageObject)
 
