@@ -267,10 +267,10 @@ function New-AzWvdAppAttachPackage_ExpandImage {
                 }
             }
             if ($x64Count -gt 1) {
-                throw "More than one x64 image in provided virtual disk, please specify package alias choose between them"
+                throw "More than one x64 image in provided virtual disk, please specify package alias to choose between them"
             }
             if ($x64Count -lt 1) {
-                throw "No x64 images found in provided virtual disk, please specify package alias choose the image you want"
+                throw "No x64 images found in provided virtual disk, please specify package alias to choose the image you want"
             }
         }
         
