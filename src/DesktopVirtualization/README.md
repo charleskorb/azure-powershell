@@ -55,7 +55,7 @@ subject-prefix: 'Wvd'
 input-file:
 - C:\armSwagger\azure-rest-api-specs-pr\specification\desktopvirtualization\resource-manager\Microsoft.DesktopVirtualization\preview\2022-09-01-privatepreview\desktopvirtualization.json
 
-module-version: 3.3.8
+module-version: 3.3.9
 title: DesktopVirtualizationClient
 directive:
   - where:

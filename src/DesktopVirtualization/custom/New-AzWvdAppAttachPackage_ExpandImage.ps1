@@ -261,7 +261,7 @@ function New-AzWvdAppAttachPackage_ExpandImage {
         else {
             $x64Count = 0
             foreach($Image in $ImageList) {
-                if ($Image.PackageFullName -contains "x64") {
+                if ($Image.PackageFullName.Contains("_x64_")) {
                     $x64Count++
                     $ImageObject = $Image
                 }

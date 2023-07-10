@@ -47,7 +47,7 @@ function New-AzWvdAppAttachPackage_Improved {
         # User friendly Name to be displayed in the portal.
         ${DisplayName},
     
-        [Parameter(Mandatory)]
+        [Parameter()]
         [ArgumentCompleter([Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.FailHealthCheckOnStagingFailure])]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.FailHealthCheckOnStagingFailure]
@@ -271,6 +271,11 @@ function New-AzWvdAppAttachPackage_Improved {
         }
         if($PSBoundParameters.ContainsKey("IsLogonBlocking")) {
             $finalParameters.Add("ImageIsRegularRegistration", $PSBoundParameters["IsLogonBlocking"])
+        }
+        
+        # Default health check failure action to Needs assistance
+        if (!($PSBoundParameters.ContainsKey("FailHealthCheckOnStagingFailure"))) {
+            $finalParameters.Add("FailHealthCheckOnStagingFailure", "NeedsAssistance")
         }
 
         $null = $PSBoundParameters.Remove("PermissionsToRemove")
