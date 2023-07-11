@@ -30,7 +30,7 @@ Update-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -Locatio
 
 ### ImageObject
 ```
-Update-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -ImageObject <ExpandMsixImage>
+Update-AzWvdAppAttachPackage [-ImageObjects] <ExpandMsixImage[]> -Name <String> -ResourceGroupName <String>
  -Location <String> [-SubscriptionId <String>] [-DisplayName <String>]
  [-FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure>] [-HostPoolReference <String[]>]
  [-IsActive] [-IsLogonBlocking] [-KeyVaultUrl <String>] [-PermissionsToAdd <String[]>]
@@ -359,18 +359,18 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ImageObject
-To construct, see NOTES section for IMAGEOBJECT properties and create a hash table.
+### -ImageObjects
+To construct, see NOTES section for IMAGEOBJECTS properties and create a hash table.
 
 ```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.ExpandMsixImage
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.ExpandMsixImage[]
 Parameter Sets: ImageObject
 Aliases:
 
 Required: True
-Position: Named
+Position: 0
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -944,6 +944,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.ExpandMsixImage[]
+
 ### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.IDesktopVirtualizationIdentity
 
 ## OUTPUTS
@@ -959,7 +961,7 @@ COMPLEX PARAMETER PROPERTIES
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 
-IMAGEOBJECT <ExpandMsixImage>: 
+IMAGEOBJECTS <ExpandMsixImage[]>: 
   - `[CertificateExpiry <DateTime?>]`: Date certificate expires, found in the appxmanifest.xml. 
   - `[CertificateName <String>]`: Certificate name found in the appxmanifest.xml. 
   - `[DisplayName <String>]`: User friendly Name to be displayed in the portal. 

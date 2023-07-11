@@ -12,12 +12,13 @@ HostPoolName/extractmsiximage Microsoft.DesktopVirtualization/hostpools/extractm
 
 This command returns Metadata of MSIX Package found in the given Image Path.
 
-### Example 2: Expands specified Image Path as a positional parameter and retrieves Package metadata found in AppxManifest.xml
+### Example 2: Expands specified Image Path as a positional parameter and retrieves Package metadata found in AppxManifest.xml. If package archtecture is not specified, it defaults to x64
 ```powershell
 Expand-AzWvdMsixImage ImagePathUri `
           -HostPoolName HostPoolName `
           -ResourceGroupName resourceGroupName `
           -SubscriptionId SubscriptionId 
+          -PackageArchitecture architecture
 
 Name                          Type
 ----                          ----

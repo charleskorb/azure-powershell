@@ -35,10 +35,10 @@ function Update-AzWvdAppAttachPackage_ImageObject {
         # User friendly Name to be displayed in the portal.
         ${DisplayName},
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0, ValueFromPipeline)]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
-        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.ExpandMsixImage]
-        ${ImageObject},
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.ExpandMsixImage[]]
+        ${ImageObjects},
 
         [Parameter()]
         [ArgumentCompleter([Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.FailHealthCheckOnStagingFailure])]
@@ -144,6 +144,28 @@ function Update-AzWvdAppAttachPackage_ImageObject {
     process {
         
         $finalParameters = @{}
+
+        if ($null -eq $ImageObjects -or $ImageObjects.Count -eq 0) {
+            throw "No Image objects provided to create package object"
+        }
+        elseif ($ImageObjects.Count -eq 1) {
+            $ImageObject = $ImageObjects[0]    
+        }
+        else {
+            $x64Count = 0
+            foreach($Image in $ImageObjects) {
+                if ($Image.PackageFullName.Contains("_x64_")) {
+                    $x64Count++
+                    $ImageObject = $Image
+                }
+            }
+            if ($x64Count -gt 1) {
+                throw "More than one x64 image in provided list, please provide a specific image to create a package object"
+            }
+            if ($x64Count -lt 1) {
+                throw "No x64 images found in provided list, please provide a specific image to create a package object"
+            }
+        }
         if($null -ne $ImageObject.PackageApplication) {
             $finalParameters.Add("PackageApplication", $ImageObject.PackageApplication)
         }
@@ -180,7 +202,7 @@ function Update-AzWvdAppAttachPackage_ImageObject {
         if($null -ne $ImageObject.PackageAlias) {
             $finalParameters.Add("PackageAlias", $ImageObject.PackageAlias)
         }
-        $null = $PSBoundParameters.Remove("ImageObject")
+        $null = $PSBoundParameters.Remove("ImageObjects")
         foreach ($key in $PSBoundParameters.Keys) {
             $finalParameters.Add($key, $PSBoundParameters[$key])
         }

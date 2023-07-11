@@ -39,7 +39,7 @@ Expand-AzWvdMsixImage -InputObject <IDesktopVirtualizationIdentity> [-Uri <Strin
 ### Improved
 ```
 Expand-AzWvdMsixImage [-Uri] <String> -HostPoolName <String> -ResourceGroupName <String>
- [-SubscriptionId <String>] [-DefaultProfile <PSObject>] [<CommonParameters>]
+ [-SubscriptionId <String>] [-PackageArchitecture <String>] [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -61,12 +61,13 @@ HostPoolName/extractmsiximage Microsoft.DesktopVirtualization/hostpools/extractm
 
 This command returns Metadata of MSIX Package found in the given Image Path.
 
-### Example 2: Expands specified Image Path as a positional parameter and retrieves Package metadata found in AppxManifest.xml
+### Example 2: Expands specified Image Path as a positional parameter and retrieves Package metadata found in AppxManifest.xml. If package archtecture is not specified, it defaults to x64
 ```powershell
 Expand-AzWvdMsixImage ImagePathUri `
           -HostPoolName HostPoolName `
           -ResourceGroupName resourceGroupName `
           -SubscriptionId SubscriptionId 
+          -PackageArchitecture architecture
 
 Name                          Type
 ----                          ----
@@ -136,6 +137,21 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -PackageArchitecture
+Version of image to return
+
+```yaml
+Type: System.String
+Parameter Sets: Improved
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

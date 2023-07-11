@@ -23,7 +23,14 @@ function Expand-AzWvdMsixImage_Improved {
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         ${Uri},
-    
+
+        # Validate set taken from options enumerated at https://learn.microsoft.com/en-us/windows/msix/package/device-architecture
+        [Parameter(HelpMessage = 'Version of image to return')]
+        [ValidateSet("x86", "x64", "ARM", "ARM64")]
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
+        [System.String]
+        ${PackageArchitecture},
+
         [Parameter()]
         [Alias('AzureRMContext', 'AzureCredential')]
         [ValidateNotNull()]
@@ -89,17 +96,54 @@ function Expand-AzWvdMsixImage_Improved {
         if ($PSBoundParameters.ContainsKey("Uri")) {
             $saveImagePath = $PSBoundParameters["Uri"]
         }
+        $saveArchitecture = "x64"
+        $saveArchitectureSpecified = $false
+        if ($PSBoundParameters.ContainsKey("PackageArchitecture")) {
+            $saveArchitecture = $PSBoundParameters["PackageArchitecture"]
+            $saveArchitectureSpecified = $true
+        }
 
         # clear 
         $null = $PSBoundParameters.Remove("HostPoolName")
         $null = $PSBoundParameters.Remove("ResourceGroupName")
         $null = $PSBoundParameters.Remove("SubscriptionId")
         $null = $PSBoundParameters.Remove("Uri")
+        $null = $PSBoundParameters.Remove("PackageArchitecture")
        
-        Expand-AzWvdMsixImage @PSBoundParameters -HostPoolName $saveHostPoolName `
+        $ImageList = Expand-AzWvdMsixImage @PSBoundParameters -HostPoolName $saveHostPoolName `
             -ResourceGroupName  $saveResourceGroupName `
             -SubscriptionId  $saveSubscriptionId `
             -Uri $saveImagePath 
+<#
+            What I did here was
+
+            1) if architecture not specified and there is only one image, return that image whatever it is
+            2) if architecture is specified and there is only one image but it is not of the specified architecture throw an exception
+            3) if architecture is specified and there is more than one image but none of them are of the specified architecture throw an exception
+            4) if architecture is specified and there is more than one image of that architecture, return all of them
+            5) if architecture is not specified and there is more than one image, return x64 image
+            6) if architecture is not specified and there is more than one x64 image, return all of them
+            7) if architecture is not specified and there is more than one image and none of them are x64, return all of them 
+#>   
+        if ($ImageList.Count -eq 1 -and !$saveArchitectureSpecified) {
+            return $ImageList[0]    
+        }
+        else {
+            $archCount = 0
+            $OutputList = @()
+            foreach($Image in $ImageList) {
+                if ($Image.PackageFullName.Contains("_" + $saveArchitecture + "_")) {
+                    $archCount++
+                    $OutputList += $Image
+                }
+            }
+            if ($archCount -eq 0 -and $saveArchitectureSpecified) {
+                throw "No " + $saveArchitecture + " images found in virtual disk"
+            } elseif ($archCount -eq 0 -and !$saveArchitectureSpecified) {
+                return $ImageList
+            }
+            return $OutputList
+        }
 
     }
 }

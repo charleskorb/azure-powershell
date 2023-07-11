@@ -28,16 +28,6 @@ New-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -Location <
  [-WhatIf] [<CommonParameters>]
 ```
 
-### ExpandImage
-```
-New-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -ExpandingHostpoolName <String>
- -ExpandingHostpoolResourceGroupName <String> -ExpandingHostpoolSubscriptionId <String>
- -FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure> -ImagePath <String> -Location <String>
- [-SubscriptionId <String>] [-DisplayName <String>] [-HostPoolReference <String[]>] [-IsActive]
- [-IsLogonBlocking] [-KeyVaultUrl <String>] [-PackageAlias <String>] [-PermissionsToAdd <String[]>]
- [-PermissionsToRemove <String[]>] [-Tag <Hashtable>] [-DefaultProfile <PSObject>] [<CommonParameters>]
-```
-
 ### ImageObject
 ```
 New-AzWvdAppAttachPackage [-ImageObjects] <ExpandMsixImage[]> -Name <String> -ResourceGroupName <String>
@@ -129,7 +119,7 @@ Location   Name                 Type
 eastus     PackageArmObjectName Microsoft.DesktopVirtualization/appattachpackages
 ```
 
-This command creates or updates an Azure Virtual Desktop App attach package in a resource group, adding permissions to it from the object ids specifed
+This command creates or updates an Azure Virtual Desktop App attach package in a resource group, adding permissions to it from the object ids specified
 
 ### Example 3: Create an Azure Virtual Desktop app attach package by image object
 ```powershell
@@ -151,7 +141,7 @@ Location   Name                 Type
 eastus     PackageArmObjectName Microsoft.DesktopVirtualization/appattachpackages
 ```
 
-This command creates or updates an Azure Virtual Desktop App Attach Package in a resource group using the output of the Expand-AzWvdMsixImage command, adding permissions to it from the object ids specifed
+This command creates or updates an Azure Virtual Desktop App Attach Package in a resource group using the output of the Expand-AzWvdMsixImage command, adding permissions to it from the object ids specified
 
 ### Example 4: Create an Azure Virtual Desktop app attach package by an image which is expanded as part of the creation process. Requires the package alias to indicate which package in the image you want to expand. If it is not provided, if there is only one package in the image it will add that, if there are more than one it will add the x64 one, and if there is more than one x64 package it will throw an exception
 ```powershell
@@ -177,7 +167,33 @@ Location   Name                 Type
 eastus     PackageArmObjectName Microsoft.DesktopVirtualization/appattachpackages
 ```
 
-This command expands the image of an Azure Virtual Desktop App Attach Package and then creates that object in a resource group, adding permissions to it from the object ids specifed
+This command expands the image of an Azure Virtual Desktop App Attach Package and then creates that object in a resource group, adding permissions to it from the object ids specified
+
+### Example 5: Create an Azure Virtual Desktop app attach package from the output of expand api 
+```powershell
+$image = Expand-AzWvdMsixImage -HostPoolName HostpoolName`
+                        -ResourceGroupName ResourceGroupName `
+                        -SubscriptionId SubscriptionId `
+                        -Uri ImagePath
+
+$image | New-AzWvdAppAttachPackage -Name PackageArmObjectName `
+                         -ResourceGroupName ResourceGroupName `
+                         -SubscriptionId SubscriptionId `
+                         -Location location `
+                         -DisplayName displayname `
+                         -IsActive:$false `
+                         -IsLogonBlocking:$false `
+                         -KeyVaultUrl keyvaultUrl `
+                         -FailHealthCheckOnStagingFailure 'Unhealthy' `
+                         -HostpoolReference hostpoolReference `
+                         -PermissionsToAdd permissionsToAdd
+
+Location   Name                 Type
+--------   ----                 ----
+eastus     PackageArmObjectName Microsoft.DesktopVirtualization/appattachpackages
+```
+
+This command creates or updates an Azure Virtual Desktop App Attach Package in a resource group using the output of the Expand-AzWvdMsixImage command, adding permissions to it from the object ids specified
 
 ## PARAMETERS
 
@@ -227,59 +243,14 @@ Accept wildcard characters: False
 ```
 
 ### -DisplayName
-User friendly Name to be displayed in the portal
+
 
 ```yaml
 Type: System.String
-Parameter Sets: ExpandImage, ImageObject, Improved
+Parameter Sets: ImageObject, Improved
 Aliases:
 
 Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ExpandingHostpoolName
-Name of hostpool doing the package expansion
-
-```yaml
-Type: System.String
-Parameter Sets: ExpandImage
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ExpandingHostpoolResourceGroupName
-Resource Group name for hostpool doing the package expansion
-
-```yaml
-Type: System.String
-Parameter Sets: ExpandImage
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ExpandingHostpoolSubscriptionId
-Subscription id for hostpool doing the package expansion
-
-```yaml
-Type: System.String
-Parameter Sets: ExpandImage
-Aliases:
-
-Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -294,7 +265,7 @@ Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.FailHealt
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -536,7 +507,7 @@ VHD/CIM image path on Network Share.
 
 ```yaml
 Type: System.String
-Parameter Sets: CreateExpanded, ExpandImage, Improved
+Parameter Sets: CreateExpanded, Improved
 Aliases:
 
 Required: True
@@ -562,11 +533,11 @@ Accept wildcard characters: False
 ```
 
 ### -IsActive
-Make this version of the package the active one across the hostpools it is associated with.
+
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
-Parameter Sets: ExpandImage, ImageObject, Improved
+Parameter Sets: ImageObject, Improved
 Aliases:
 
 Required: False
@@ -577,11 +548,11 @@ Accept wildcard characters: False
 ```
 
 ### -IsLogonBlocking
-Specifies if the package should be registered during logon or on click
+
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
-Parameter Sets: ExpandImage, ImageObject, Improved
+Parameter Sets: ImageObject, Improved
 Aliases: IsRegularRegistration
 
 Required: False
@@ -652,11 +623,11 @@ Accept wildcard characters: False
 ```
 
 ### -PackageAlias
-Package Alias from extract MSIX Image
+Alias of MSIX Package.
 
 ```yaml
 Type: System.String
-Parameter Sets: ExpandImage, Improved
+Parameter Sets: Improved
 Aliases:
 
 Required: False
@@ -763,7 +734,7 @@ List of object ids to add permissions to the package
 
 ```yaml
 Type: System.String[]
-Parameter Sets: ExpandImage, ImageObject, Improved
+Parameter Sets: ImageObject, Improved
 Aliases:
 
 Required: False
@@ -778,7 +749,7 @@ List of object ids to remove permissions from the package
 
 ```yaml
 Type: System.String[]
-Parameter Sets: ExpandImage, ImageObject, Improved
+Parameter Sets: ImageObject, Improved
 Aliases:
 
 Required: False

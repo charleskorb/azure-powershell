@@ -26,7 +26,7 @@ Remove-AzWvdAppAttachPackage -InputObject <IDesktopVirtualizationIdentity> [-For
 
 ### Improved
 ```
-Remove-AzWvdAppAttachPackage [-PackageToRemove] <IAppAttachPackage> [-DefaultProfile <PSObject>]
+Remove-AzWvdAppAttachPackage [-PackageToRemove] <AppAttachPackage> [-DefaultProfile <PSObject>]
  [<CommonParameters>]
 ```
 
@@ -38,6 +38,13 @@ Remove an App Attach Package.
 ### Example 1: Delete an Azure Virtual Desktop App Attach Package by name
 ```powershell
 Remove-AzWvdAppAttachPackage -ResourceGroupName ResourceGroupName -Name HostPoolName
+```
+
+This command deletes an Azure Virtual Desktop App Attach Package in a Resource Group.
+
+### Example 2: Delete an Azure Virtual Desktop App Attach Package by object
+```powershell
+Remove-AzWvdAppAttachPackage $packageThatYouGotFromCallingGet
 ```
 
 This command deletes an Azure Virtual Desktop App Attach Package in a Resource Group.
@@ -110,7 +117,7 @@ App Attach Package to be Removed
 To construct, see NOTES section for PACKAGETOREMOVE properties and create a hash table.
 
 ```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.IAppAttachPackage
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.AppAttachPackage
 Parameter Sets: Improved
 Aliases:
 
@@ -203,7 +210,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.IAppAttachPackage
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.AppAttachPackage
 
 ### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.IDesktopVirtualizationIdentity
 
@@ -237,16 +244,8 @@ INPUTOBJECT <IDesktopVirtualizationIdentity>: Identity Parameter
   - `[UserSessionId <String>]`: The name of the user session within the specified session host
   - `[WorkspaceName <String>]`: The name of the workspace
 
-PACKAGETOREMOVE <IAppAttachPackage>: App Attach Package to be Removed
+PACKAGETOREMOVE <AppAttachPackage>: App Attach Package to be Removed
   - `Location <String>`: The geo-location where the resource lives
-  - `[Tag <ITrackedResourceTags>]`: Resource tags.
-    - `[(Any) <String>]`: This indicates any property can be added to this object.
-  - `[SystemDataCreatedAt <DateTime?>]`: The timestamp of resource creation (UTC).
-  - `[SystemDataCreatedBy <String>]`: The identity that created the resource.
-  - `[SystemDataCreatedByType <CreatedByType?>]`: The type of identity that created the resource.
-  - `[SystemDataLastModifiedAt <DateTime?>]`: The timestamp of resource last modification (UTC)
-  - `[SystemDataLastModifiedBy <String>]`: The identity that last modified the resource.
-  - `[SystemDataLastModifiedByType <CreatedByType?>]`: The type of identity that last modified the resource.
   - `[FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure?>]`: Parameter indicating how the health check should behave if this package fails staging
   - `[HostPoolReference <String[]>]`: List of Hostpool resource Ids.
   - `[ImageCertificateExpiry <DateTime?>]`: Date certificate expires, found in the appxmanifest.xml. 
@@ -275,6 +274,14 @@ PACKAGETOREMOVE <IAppAttachPackage>: App Attach Package to be Removed
   - `[ImagePath <String>]`: VHD/CIM image path on Network Share.
   - `[ImageVersion <String>]`: Package Version found in the appxmanifest.xml. 
   - `[KeyVaultUrl <String>]`: URL of keyvault location to store certificate
+  - `[Tag <ITrackedResourceTags>]`: Resource tags.
+    - `[(Any) <String>]`: This indicates any property can be added to this object.
+  - `[SystemDataCreatedAt <DateTime?>]`: The timestamp of resource creation (UTC).
+  - `[SystemDataCreatedBy <String>]`: The identity that created the resource.
+  - `[SystemDataCreatedByType <CreatedByType?>]`: The type of identity that created the resource.
+  - `[SystemDataLastModifiedAt <DateTime?>]`: The timestamp of resource last modification (UTC)
+  - `[SystemDataLastModifiedBy <String>]`: The identity that last modified the resource.
+  - `[SystemDataLastModifiedByType <CreatedByType?>]`: The type of identity that last modified the resource.
 
 ## RELATED LINKS
 

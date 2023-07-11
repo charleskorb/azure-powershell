@@ -1,15 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="2" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2023-07-10" time="15:52:40">
-  <environment machine-name="LAPTOP-QO2UAD5B" user="charleskorb" platform="Microsoft Windows 11 Enterprise|C:\WINDOWS|\Device\Harddisk0\Partition3" os-version="10.0.22621" user-domain="REDMOND" nunit-version="2.5.8.0" clr-version="Unknown" cwd="C:\CustomPowershell\azure-powershell\src\DesktopVirtualization" />
+<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="4" errors="0" failures="1" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2023-07-11" time="14:53:11">
+  <environment user-domain="REDMOND" os-version="10.0.22621" clr-version="Unknown" platform="Microsoft Windows 11 Enterprise|C:\WINDOWS|\Device\Harddisk0\Partition3" cwd="C:\CustomPowershell\azure-powershell\src\DesktopVirtualization" nunit-version="2.5.8.0" user="charleskorb" machine-name="LAPTOP-QO2UAD5B" />
   <culture-info current-culture="en-US" current-uiculture="en-US" />
-  <test-suite type="TestFixture" name="Pester" executed="True" result="Success" success="True" time="4.2196" asserts="0" description="Pester">
+  <test-suite type="TestFixture" name="Pester" executed="True" result="Failure" success="False" time="4.1865" asserts="0" description="Pester">
     <results>
-      <test-suite type="TestFixture" name="C:\CustomPowershell\azure-powershell\src\DesktopVirtualization\test\Remove-AzWvdAppAttachPackage.Tests.ps1" executed="True" result="Success" success="True" time="4.2196" asserts="0" description="C:\CustomPowershell\azure-powershell\src\DesktopVirtualization\test\Remove-AzWvdAppAttachPackage.Tests.ps1">
+      <test-suite type="TestFixture" name="C:\CustomPowershell\azure-powershell\src\DesktopVirtualization\test\Expand-AzWvdMsixImage.Tests.ps1" executed="True" result="Failure" success="False" time="4.1865" asserts="0" description="C:\CustomPowershell\azure-powershell\src\DesktopVirtualization\test\Expand-AzWvdMsixImage.Tests.ps1">
         <results>
-          <test-suite type="TestFixture" name="Remove-AzWvdAppAttachPackage" executed="True" result="Success" success="True" time="4.2196" asserts="0" description="Remove-AzWvdAppAttachPackage">
+          <test-suite type="TestFixture" name="Expand-AzWvdMsixImage" executed="True" result="Failure" success="False" time="4.1865" asserts="0" description="Expand-AzWvdMsixImage">
             <results>
-              <test-case description="Delete" name="Remove-AzWvdAppAttachPackage.Delete" time="3.2437" asserts="0" success="True" result="Success" executed="True" />
-              <test-case description="DeleteImproved" name="Remove-AzWvdAppAttachPackage.DeleteImproved" time="0.9759" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="Expand" name="Expand-AzWvdMsixImage.Expand" time="2.6125" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="Expand_Improved" name="Expand-AzWvdMsixImage.Expand_Improved" time="0.79" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="Expand_Improved_SpecifyArchitecture" name="Expand-AzWvdMsixImage.Expand_Improved_SpecifyArchitecture" time="0.034" asserts="0" success="False" result="Failure" executed="True">
+                <failure>
+                  <message>Cannot validate argument on parameter 'PackageArchitecture'. The argument "poop" does not belong to the set "x86,x64,ARM,ARM64" specified by the ValidateSet attribute. Supply an argument that is in the set and then try the command again.</message>
+                  <stack-trace>at &lt;ScriptBlock&gt;, C:\CustomPowershell\azure-powershell\src\DesktopVirtualization\exports\ProxyCmdletDefinitions.ps1: line 388
+388:         $scriptCmd = {&amp; $wrappedCmd @PSBoundParameters}
+</stack-trace>
+                </failure>
+              </test-case>
+              <test-case description="Expand_Improved_SpecifyWrongArchitecture" name="Expand-AzWvdMsixImage.Expand_Improved_SpecifyWrongArchitecture" time="0.75" asserts="0" success="True" result="Success" executed="True" />
             </results>
           </test-suite>
         </results>

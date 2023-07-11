@@ -53,4 +53,40 @@ Describe 'Expand-AzWvdMsixImage' {
         }
 
     }
+
+    It 'Expand_Improved_SpecifyArchitecture' { 
+        try {
+            $package = Expand-AzWvdMsixImage -HostPoolName $env.HostPoolPersistent2 `
+                -ResourceGroupName $env.ResourceGroupPersistent `
+                -SubscriptionId $env.SubscriptionId `
+                -Path $env.MSIXImagePath `
+                -PackageArchitecture "x64"
+            
+            $package.PackageFamilyName | Should -Be  'Mozilla.MozillaFirefox_gmpnhwe7bv608'
+            $package.ImagePath | Should -Be 'C:\AppAttach\Firefox20110.0.1.vhdx'
+            $package.PackageName | Should -Be 'Mozilla.MozillaFirefox'
+            $package.PackageAlias | Should -Be 'mozillamozillafirefox'
+            $package.IsActive | Should -Be $False
+            $package.IsRegularRegistration | Should -Be $False
+            $package.PackageRelativePath | Should -Be '\apps\Mozilla.MozillaFirefox_110.0.1.0_x64__gmpnhwe7bv608'
+        }
+        finally {
+
+        }
+
+    }
+
+    It 'Expand_Improved_SpecifyWrongArchitecture' { 
+        try {
+            { Expand-AzWvdMsixImage -HostPoolName $env.HostPoolPersistent2 `
+                -ResourceGroupName $env.ResourceGroupPersistent `
+                -SubscriptionId $env.SubscriptionId `
+                -Path $env.MSIXImagePath `
+                -PackageArchitecture "ARM64" } | Should -Throw "ARM64"
+        }
+        finally {
+
+        }
+
+    }
 }

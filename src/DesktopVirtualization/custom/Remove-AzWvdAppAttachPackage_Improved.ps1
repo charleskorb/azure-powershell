@@ -2,9 +2,9 @@ function Remove-AzWvdAppAttachPackage_Improved {
     [OutputType([System.Boolean])]
     [CmdletBinding(PositionalBinding=$false, ConfirmImpact='Medium')]
     param(
-        [Parameter(Mandatory, Position = 0, ValueFromPipeline, HelpMessage = 'App Attach Package to be Removed')]
+        [Parameter(Mandatory, Position = 0, ValueFromPipeline = $true, HelpMessage = 'App Attach Package to be Removed')]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Path')]
-        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.IAppAttachPackage]
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.AppAttachPackage]
         ${PackageToRemove},
     
         [Parameter()]
