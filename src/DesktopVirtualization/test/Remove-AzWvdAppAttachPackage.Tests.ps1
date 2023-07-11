@@ -100,8 +100,7 @@ Describe 'Remove-AzWvdAppAttachPackage' {
         $packages[0].ImagePackageName | Should -Be 'MsixUnitTest_Name'
         $packages[0].ImagePackageRelativePath | Should -Be 'MsixUnitTest_RelativePackageRoot' 
 
-        Write-Host $packages[0].GetType().FullName
-        $packages[0]| Remove-AzWvdAppAttachPackage
+        Remove-AzWvdAppAttachPackage $packages[0]
         
         $packages = Get-AzWvdAppAttachPackage `
                 -ResourceGroupName $env.ResourceGroup `
