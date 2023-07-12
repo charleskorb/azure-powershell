@@ -26,7 +26,7 @@ function Expand-AzWvdMsixImage_Improved {
 
         # Validate set taken from options enumerated at https://learn.microsoft.com/en-us/windows/msix/package/device-architecture
         [Parameter(HelpMessage = 'Version of image to return')]
-        [ValidateSet("x86", "x64", "ARM", "ARM64")]
+        [ValidateSet("x86", "x64", "ARM", "ARM64", "ALL")]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         ${PackageArchitecture},
@@ -124,9 +124,13 @@ function Expand-AzWvdMsixImage_Improved {
             5) if architecture is not specified and there is more than one image, return x64 image
             6) if architecture is not specified and there is more than one x64 image, return all of them
             7) if architecture is not specified and there is more than one image and none of them are x64, return all of them 
+            8) if architecture is specified as "ALL", return all images
 #>   
         if ($ImageList.Count -eq 1 -and !$saveArchitectureSpecified) {
             return $ImageList[0]    
+        }
+        elseif ($saveArchitecture.Equals("ALL")) {
+            return $ImageList
         }
         else {
             $archCount = 0
