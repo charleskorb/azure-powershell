@@ -7,7 +7,6 @@ exports
 tools
 custom/*.psm1
 test/*-TestResults.xml
-/*.ps1
 /*.ps1xml
 /*.psm1
 /*.snk
