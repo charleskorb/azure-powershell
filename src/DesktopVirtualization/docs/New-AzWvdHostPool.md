@@ -14,19 +14,24 @@ Create or update a host pool.
 
 ### CreateExpanded (Default)
 ```
-New-AzWvdHostPool -HostPoolType <HostPoolType> -LoadBalancerType <LoadBalancerType> -Name <String>
- -PreferredAppGroupType <PreferredAppGroupType> -ResourceGroupName <String> [-Location <String>]
+New-AzWvdHostPool -HostPoolType <HostPoolType> -LoadBalancerType <LoadBalancerType> -Location <String>
+ -Name <String> -PreferredAppGroupType <PreferredAppGroupType> -ResourceGroupName <String>
  [-SubscriptionId <String>] [-AgentUpdateMaintenanceWindow <IMaintenanceWindowProperties[]>]
  [-AgentUpdateMaintenanceWindowTimeZone <String>] [-AgentUpdateType <SessionHostComponentUpdateType>]
  [-AgentUpdateUseSessionHostLocalTime] [-CustomRdpProperty <String>] [-Description <String>]
  [-ExpirationTime <DateTime>] [-FriendlyName <String>] [-IdentityType <ResourceIdentityType>] [-Kind <String>]
- [-ManagedBy <String>] [-MaxSessionLimit <Int32>]
+ [-ManagedBy <String>] [-ManagementType <ManagementType>] [-MaxSessionLimit <Int32>]
+ [-MigrationRequestMigrationPath <String>] [-MigrationRequestOperation <Operation>]
  [-PersonalDesktopAssignmentType <PersonalDesktopAssignmentType>] [-PlanName <String>] [-PlanProduct <String>]
  [-PlanPromotionCode <String>] [-PlanPublisher <String>] [-PlanVersion <String>]
- [-RegistrationInfoToken <String>] [-RegistrationTokenOperation <RegistrationTokenOperation>] [-Ring <Int32>]
- [-SkuCapacity <Int32>] [-SkuFamily <String>] [-SkuName <String>] [-SkuSize <String>] [-SkuTier <SkuTier>]
+ [-PublicNetworkAccess <HostpoolPublicNetworkAccess>] [-RegistrationInfoToken <String>]
+ [-RegistrationTokenOperation <RegistrationTokenOperation>] [-Ring <Int32>] [-SkuCapacity <Int32>]
+ [-SkuFamily <String>] [-SkuName <String>] [-SkuSize <String>] [-SkuTier <SkuTier>]
  [-SsoadfsAuthority <String>] [-SsoClientId <String>] [-SsoClientSecretKeyVaultPath <String>]
- [-SsoSecretType <SsoSecretType>] [-StartVMOnConnect] [-Tag <Hashtable>] [-ValidationEnvironment]
+ [-SsoSecretType <SsoSecretType>] [-StartVMOnConnect] [-SystemDataCreatedAt <DateTime>]
+ [-SystemDataCreatedBy <String>] [-SystemDataCreatedByType <CreatedByType>]
+ [-SystemDataLastModifiedAt <DateTime>] [-SystemDataLastModifiedBy <String>]
+ [-SystemDataLastModifiedByType <CreatedByType>] [-Tag <Hashtable>] [-ValidationEnvironment]
  [-VMTemplate <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
@@ -111,7 +116,7 @@ Maintenance windows are 2 hours long.
 To construct, see NOTES section for AGENTUPDATEMAINTENANCEWINDOW properties and create a hash table.
 
 ```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IMaintenanceWindowProperties[]
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IMaintenanceWindowProperties[]
 Parameter Sets: CreateExpanded
 Aliases:
 
@@ -184,8 +189,7 @@ Accept wildcard characters: False
 ```
 
 ### -DefaultProfile
-The DefaultProfile parameter is not functional.
-Use the SubscriptionId parameter when available if executing the cmdlet against a different subscription.
+The credentials, account, tenant, and subscription used for communication with Azure.
 
 ```yaml
 Type: System.Management.Automation.PSObject
@@ -353,11 +357,57 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ManagementType
+The type of management for this hostpool, Automated or Standard.
+The default value is Automated.
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.ManagementType
+Parameter Sets: CreateExpanded
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -MaxSessionLimit
 The max session limit of HostPool.
 
 ```yaml
 Type: System.Int32
+Parameter Sets: CreateExpanded
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -MigrationRequestMigrationPath
+The path to the legacy object to migrate.
+
+```yaml
+Type: System.String
+Parameter Sets: CreateExpanded
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -MigrationRequestOperation
+The type of operation for migration.
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.Operation
 Parameter Sets: CreateExpanded
 Aliases:
 
@@ -487,6 +537,21 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PublicNetworkAccess
+Enabled allows this resource to be accessed from both public and private networks, Disabled allows this resource to only be accessed via private endpoints
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.HostpoolPublicNetworkAccess
+Parameter Sets: CreateExpanded
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -723,6 +788,96 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -SystemDataCreatedAt
+The timestamp of resource creation (UTC).
+
+```yaml
+Type: System.DateTime
+Parameter Sets: CreateExpanded
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataCreatedBy
+The identity that created the resource.
+
+```yaml
+Type: System.String
+Parameter Sets: CreateExpanded
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataCreatedByType
+The type of identity that created the resource.
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.CreatedByType
+Parameter Sets: CreateExpanded
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataLastModifiedAt
+The timestamp of resource last modification (UTC)
+
+```yaml
+Type: System.DateTime
+Parameter Sets: CreateExpanded
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataLastModifiedBy
+The identity that last modified the resource.
+
+```yaml
+Type: System.String
+Parameter Sets: CreateExpanded
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataLastModifiedByType
+The type of identity that last modified the resource.
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.CreatedByType
+Parameter Sets: CreateExpanded
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Tag
 Resource tags.
 
@@ -754,7 +909,8 @@ Accept wildcard characters: False
 ```
 
 ### -VMTemplate
-VM template for sessionhosts configuration within hostpool.
+Deprecated: VM template for sessionhosts configuration within hostpool.
+This property has been deprecated.
 
 ```yaml
 Type: System.String
@@ -821,7 +977,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IHostPool
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IHostPool
 
 ## NOTES
 
@@ -832,7 +988,7 @@ COMPLEX PARAMETER PROPERTIES
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 
-`AGENTUPDATEMAINTENANCEWINDOW <IMaintenanceWindowProperties[]>`: List of maintenance windows. Maintenance windows are 2 hours long.
+AGENTUPDATEMAINTENANCEWINDOW <IMaintenanceWindowProperties[]>: List of maintenance windows. Maintenance windows are 2 hours long.
   - `[DayOfWeek <DayOfWeek?>]`: Day of the week.
   - `[Hour <Int32?>]`: The update start hour of the day. (0 - 23)
 

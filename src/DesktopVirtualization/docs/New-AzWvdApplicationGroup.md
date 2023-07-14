@@ -14,12 +14,16 @@ Create or update an applicationGroup.
 
 ```
 New-AzWvdApplicationGroup -Name <String> -ResourceGroupName <String>
- -ApplicationGroupType <ApplicationGroupType> -HostPoolArmPath <String> [-SubscriptionId <String>]
- [-Description <String>] [-FriendlyName <String>] [-IdentityType <ResourceIdentityType>] [-Kind <String>]
- [-Location <String>] [-ManagedBy <String>] [-PlanName <String>] [-PlanProduct <String>]
- [-PlanPromotionCode <String>] [-PlanPublisher <String>] [-PlanVersion <String>] [-SkuCapacity <Int32>]
- [-SkuFamily <String>] [-SkuName <String>] [-SkuSize <String>] [-SkuTier <SkuTier>] [-Tag <Hashtable>]
- [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
+ -ApplicationGroupType <ApplicationGroupType> -HostPoolArmPath <String> -Location <String>
+ [-SubscriptionId <String>] [-Description <String>] [-FriendlyName <String>]
+ [-IdentityType <ResourceIdentityType>] [-Kind <String>] [-ManagedBy <String>]
+ [-MigrationRequestMigrationPath <String>] [-MigrationRequestOperation <Operation>] [-PlanName <String>]
+ [-PlanProduct <String>] [-PlanPromotionCode <String>] [-PlanPublisher <String>] [-PlanVersion <String>]
+ [-SkuCapacity <Int32>] [-SkuFamily <String>] [-SkuName <String>] [-SkuSize <String>] [-SkuTier <SkuTier>]
+ [-SystemDataCreatedAt <DateTime>] [-SystemDataCreatedBy <String>] [-SystemDataCreatedByType <CreatedByType>]
+ [-SystemDataLastModifiedAt <DateTime>] [-SystemDataLastModifiedBy <String>]
+ [-SystemDataLastModifiedByType <CreatedByType>] [-Tag <Hashtable>] [-DefaultProfile <PSObject>] [-Confirm]
+ [-WhatIf] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -83,8 +87,7 @@ Accept wildcard characters: False
 ```
 
 ### -DefaultProfile
-The DefaultProfile parameter is not functional.
-Use the SubscriptionId parameter when available if executing the cmdlet against a different subscription.
+The credentials, account, tenant, and subscription used for communication with Azure.
 
 ```yaml
 Type: System.Management.Automation.PSObject
@@ -183,7 +186,7 @@ Type: System.String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -197,6 +200,36 @@ If this is present, complete mode deployment will not delete the resource if it 
 
 ```yaml
 Type: System.String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -MigrationRequestMigrationPath
+The path to the legacy object to migrate.
+
+```yaml
+Type: System.String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -MigrationRequestOperation
+The type of operation for migration.
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.Operation
 Parameter Sets: (All)
 Aliases:
 
@@ -412,6 +445,96 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -SystemDataCreatedAt
+The timestamp of resource creation (UTC).
+
+```yaml
+Type: System.DateTime
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataCreatedBy
+The identity that created the resource.
+
+```yaml
+Type: System.String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataCreatedByType
+The type of identity that created the resource.
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.CreatedByType
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataLastModifiedAt
+The timestamp of resource last modification (UTC)
+
+```yaml
+Type: System.DateTime
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataLastModifiedBy
+The identity that last modified the resource.
+
+```yaml
+Type: System.String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataLastModifiedByType
+The type of identity that last modified the resource.
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.CreatedByType
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Tag
 Resource tags.
 
@@ -465,7 +588,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IApplicationGroup
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IApplicationGroup
 
 ## NOTES
 

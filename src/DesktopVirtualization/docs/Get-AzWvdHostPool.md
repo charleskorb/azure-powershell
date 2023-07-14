@@ -14,8 +14,7 @@ Get a host pool.
 
 ### List1 (Default)
 ```
-Get-AzWvdHostPool [-SubscriptionId <String[]>] [-InitialSkip <Int32>] [-IsDescending] [-PageSize <Int32>]
- [-DefaultProfile <PSObject>] [<CommonParameters>]
+Get-AzWvdHostPool [-SubscriptionId <String[]>] [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
 ### Get
@@ -32,8 +31,8 @@ Get-AzWvdHostPool -InputObject <IDesktopVirtualizationIdentity> [-DefaultProfile
 
 ### List
 ```
-Get-AzWvdHostPool -ResourceGroupName <String> [-SubscriptionId <String[]>] [-InitialSkip <Int32>]
- [-IsDescending] [-PageSize <Int32>] [-DefaultProfile <PSObject>] [<CommonParameters>]
+Get-AzWvdHostPool -ResourceGroupName <String> [-SubscriptionId <String[]>] [-DefaultProfile <PSObject>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -71,28 +70,12 @@ This command lists a Windows Virtual Desktop HostPools in a Resource Group.
 ## PARAMETERS
 
 ### -DefaultProfile
-The DefaultProfile parameter is not functional.
-Use the SubscriptionId parameter when available if executing the cmdlet against a different subscription.
+The credentials, account, tenant, and subscription used for communication with Azure.
 
 ```yaml
 Type: System.Management.Automation.PSObject
 Parameter Sets: (All)
 Aliases: AzureRMContext, AzureCredential
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -InitialSkip
-Initial number of items to skip.
-
-```yaml
-Type: System.Int32
-Parameter Sets: List, List1
-Aliases:
 
 Required: False
 Position: Named
@@ -117,21 +100,6 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -IsDescending
-Indicates whether the collection is descending.
-
-```yaml
-Type: System.Management.Automation.SwitchParameter
-Parameter Sets: List, List1
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Name
 The name of the host pool within the specified resource group
 
@@ -141,21 +109,6 @@ Parameter Sets: Get
 Aliases: HostPoolName
 
 Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -PageSize
-Number of items per page.
-
-```yaml
-Type: System.Int32
-Parameter Sets: List, List1
-Aliases:
-
-Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -202,7 +155,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IHostPool
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IHostPool
 
 ## NOTES
 
@@ -213,13 +166,15 @@ COMPLEX PARAMETER PROPERTIES
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 
-`INPUTOBJECT <IDesktopVirtualizationIdentity>`: Identity Parameter
+INPUTOBJECT <IDesktopVirtualizationIdentity>: Identity Parameter
   - `[ApplicationGroupName <String>]`: The name of the application group
   - `[ApplicationName <String>]`: The name of the application within the specified application group
   - `[DesktopName <String>]`: The name of the desktop within the specified desktop group
   - `[HostPoolName <String>]`: The name of the host pool within the specified resource group
   - `[Id <String>]`: Resource identity path
   - `[MsixPackageFullName <String>]`: The version specific package full name of the MSIX package within specified hostpool
+  - `[OperationId <String>]`: The Guid of the operation.
+  - `[PrivateEndpointConnectionName <String>]`: The name of the private endpoint connection associated with the Azure resource
   - `[ResourceGroupName <String>]`: The name of the resource group. The name is case insensitive.
   - `[ScalingPlanName <String>]`: The name of the scaling plan.
   - `[ScalingPlanScheduleName <String>]`: The name of the ScalingPlanSchedule

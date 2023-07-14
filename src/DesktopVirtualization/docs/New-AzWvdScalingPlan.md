@@ -13,14 +13,16 @@ Create or update a scaling plan.
 ## SYNTAX
 
 ```
-New-AzWvdScalingPlan -Name <String> -ResourceGroupName <String> -TimeZone <String> [-SubscriptionId <String>]
- [-Description <String>] [-ExclusionTag <String>] [-FriendlyName <String>]
+New-AzWvdScalingPlan -Name <String> -ResourceGroupName <String> -Location <String> -TimeZone <String>
+ [-SubscriptionId <String>] [-Description <String>] [-ExclusionTag <String>] [-FriendlyName <String>]
  [-HostPoolReference <IScalingHostPoolReference[]>] [-HostPoolType <ScalingHostPoolType>]
- [-IdentityType <ResourceIdentityType>] [-Kind <String>] [-Location <String>] [-ManagedBy <String>]
- [-PlanName <String>] [-PlanProduct <String>] [-PlanPromotionCode <String>] [-PlanPublisher <String>]
- [-PlanVersion <String>] [-Schedule <IScalingSchedule[]>] [-SkuCapacity <Int32>] [-SkuFamily <String>]
- [-SkuName <String>] [-SkuSize <String>] [-SkuTier <SkuTier>] [-Tag <Hashtable>] [-DefaultProfile <PSObject>]
- [-Confirm] [-WhatIf] [<CommonParameters>]
+ [-IdentityType <ResourceIdentityType>] [-Kind <String>] [-ManagedBy <String>] [-PlanName <String>]
+ [-PlanProduct <String>] [-PlanPromotionCode <String>] [-PlanPublisher <String>] [-PlanVersion <String>]
+ [-Schedule <IScalingSchedule[]>] [-SkuCapacity <Int32>] [-SkuFamily <String>] [-SkuName <String>]
+ [-SkuSize <String>] [-SkuTier <SkuTier>] [-SystemDataCreatedAt <DateTime>] [-SystemDataCreatedBy <String>]
+ [-SystemDataCreatedByType <CreatedByType>] [-SystemDataLastModifiedAt <DateTime>]
+ [-SystemDataLastModifiedBy <String>] [-SystemDataLastModifiedByType <CreatedByType>] [-Tag <Hashtable>]
+ [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -79,8 +81,7 @@ This command creates a new Windows Virtual Desktop Scaling Plan in a Resource Gr
 ## PARAMETERS
 
 ### -DefaultProfile
-The DefaultProfile parameter is not functional.
-Use the SubscriptionId parameter when available if executing the cmdlet against a different subscription.
+The credentials, account, tenant, and subscription used for communication with Azure.
 
 ```yaml
 Type: System.Management.Automation.PSObject
@@ -144,7 +145,7 @@ List of ScalingHostPoolReference definitions.
 To construct, see NOTES section for HOSTPOOLREFERENCE properties and create a hash table.
 
 ```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IScalingHostPoolReference[]
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IScalingHostPoolReference[]
 Parameter Sets: (All)
 Aliases:
 
@@ -210,7 +211,7 @@ Type: System.String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -350,7 +351,7 @@ List of ScalingPlanPooledSchedule definitions.
 To construct, see NOTES section for SCHEDULE properties and create a hash table.
 
 ```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IScalingSchedule[]
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IScalingSchedule[]
 Parameter Sets: (All)
 Aliases:
 
@@ -455,6 +456,96 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -SystemDataCreatedAt
+The timestamp of resource creation (UTC).
+
+```yaml
+Type: System.DateTime
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataCreatedBy
+The identity that created the resource.
+
+```yaml
+Type: System.String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataCreatedByType
+The type of identity that created the resource.
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.CreatedByType
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataLastModifiedAt
+The timestamp of resource last modification (UTC)
+
+```yaml
+Type: System.DateTime
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataLastModifiedBy
+The identity that last modified the resource.
+
+```yaml
+Type: System.String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataLastModifiedByType
+The type of identity that last modified the resource.
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.CreatedByType
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Tag
 Resource tags.
 
@@ -523,7 +614,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IScalingPlan
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IScalingPlan
 
 ## NOTES
 
@@ -534,11 +625,11 @@ COMPLEX PARAMETER PROPERTIES
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 
-`HOSTPOOLREFERENCE <IScalingHostPoolReference[]>`: List of ScalingHostPoolReference definitions.
+HOSTPOOLREFERENCE <IScalingHostPoolReference[]>: List of ScalingHostPoolReference definitions.
   - `[HostPoolArmPath <String>]`: Arm path of referenced hostpool.
   - `[ScalingPlanEnabled <Boolean?>]`: Is the scaling plan enabled for this hostpool.
 
-`SCHEDULE <IScalingSchedule[]>`: List of ScalingPlanPooledSchedule definitions.
+SCHEDULE <IScalingSchedule[]>: List of ScalingPlanPooledSchedule definitions.
   - `[DaysOfWeek <String[]>]`: Set of days of the week on which this schedule is active.
   - `[Name <String>]`: Name of the ScalingPlanPooledSchedule.
   - `[OffPeakLoadBalancingAlgorithm <SessionHostLoadBalancingAlgorithm?>]`: Load balancing algorithm for off-peak period.

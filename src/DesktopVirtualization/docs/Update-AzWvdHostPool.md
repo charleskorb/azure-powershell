@@ -20,10 +20,14 @@ Update-AzWvdHostPool -Name <String> -ResourceGroupName <String> [-SubscriptionId
  [-AgentUpdateUseSessionHostLocalTime] [-CustomRdpProperty <String>] [-Description <String>]
  [-FriendlyName <String>] [-LoadBalancerType <LoadBalancerType>] [-MaxSessionLimit <Int32>]
  [-PersonalDesktopAssignmentType <PersonalDesktopAssignmentType>]
- [-PreferredAppGroupType <PreferredAppGroupType>] [-RegistrationInfoExpirationTime <DateTime>]
+ [-PreferredAppGroupType <PreferredAppGroupType>] [-PublicNetworkAccess <HostpoolPublicNetworkAccess>]
+ [-RegistrationInfoExpirationTime <DateTime>]
  [-RegistrationInfoRegistrationTokenOperation <RegistrationTokenOperation>] [-Ring <Int32>]
  [-SsoadfsAuthority <String>] [-SsoClientId <String>] [-SsoClientSecretKeyVaultPath <String>]
- [-SsoSecretType <SsoSecretType>] [-StartVMOnConnect] [-Tag <Hashtable>] [-ValidationEnvironment]
+ [-SsoSecretType <SsoSecretType>] [-StartVMOnConnect] [-SystemDataCreatedAt <DateTime>]
+ [-SystemDataCreatedBy <String>] [-SystemDataCreatedByType <CreatedByType>]
+ [-SystemDataLastModifiedAt <DateTime>] [-SystemDataLastModifiedBy <String>]
+ [-SystemDataLastModifiedByType <CreatedByType>] [-Tag <Hashtable>] [-ValidationEnvironment]
  [-VMTemplate <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
@@ -35,10 +39,14 @@ Update-AzWvdHostPool -InputObject <IDesktopVirtualizationIdentity>
  [-AgentUpdateUseSessionHostLocalTime] [-CustomRdpProperty <String>] [-Description <String>]
  [-FriendlyName <String>] [-LoadBalancerType <LoadBalancerType>] [-MaxSessionLimit <Int32>]
  [-PersonalDesktopAssignmentType <PersonalDesktopAssignmentType>]
- [-PreferredAppGroupType <PreferredAppGroupType>] [-RegistrationInfoExpirationTime <DateTime>]
+ [-PreferredAppGroupType <PreferredAppGroupType>] [-PublicNetworkAccess <HostpoolPublicNetworkAccess>]
+ [-RegistrationInfoExpirationTime <DateTime>]
  [-RegistrationInfoRegistrationTokenOperation <RegistrationTokenOperation>] [-Ring <Int32>]
  [-SsoadfsAuthority <String>] [-SsoClientId <String>] [-SsoClientSecretKeyVaultPath <String>]
- [-SsoSecretType <SsoSecretType>] [-StartVMOnConnect] [-Tag <Hashtable>] [-ValidationEnvironment]
+ [-SsoSecretType <SsoSecretType>] [-StartVMOnConnect] [-SystemDataCreatedAt <DateTime>]
+ [-SystemDataCreatedBy <String>] [-SystemDataCreatedByType <CreatedByType>]
+ [-SystemDataLastModifiedAt <DateTime>] [-SystemDataLastModifiedBy <String>]
+ [-SystemDataLastModifiedByType <CreatedByType>] [-Tag <Hashtable>] [-ValidationEnvironment]
  [-VMTemplate <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
@@ -76,7 +84,7 @@ Maintenance windows are 2 hours long.
 To construct, see NOTES section for AGENTUPDATEMAINTENANCEWINDOW properties and create a hash table.
 
 ```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IMaintenanceWindowPatchProperties[]
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IMaintenanceWindowPatchProperties[]
 Parameter Sets: (All)
 Aliases:
 
@@ -149,8 +157,7 @@ Accept wildcard characters: False
 ```
 
 ### -DefaultProfile
-The DefaultProfile parameter is not functional.
-Use the SubscriptionId parameter when available if executing the cmdlet against a different subscription.
+The credentials, account, tenant, and subscription used for communication with Azure.
 
 ```yaml
 Type: System.Management.Automation.PSObject
@@ -275,6 +282,21 @@ The type of preferred application group type, default to Desktop Application Gro
 
 ```yaml
 Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.PreferredAppGroupType
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PublicNetworkAccess
+Enabled to allow this resource to be access from the public network
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.HostpoolPublicNetworkAccess
 Parameter Sets: (All)
 Aliases:
 
@@ -436,6 +458,96 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -SystemDataCreatedAt
+The timestamp of resource creation (UTC).
+
+```yaml
+Type: System.DateTime
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataCreatedBy
+The identity that created the resource.
+
+```yaml
+Type: System.String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataCreatedByType
+The type of identity that created the resource.
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.CreatedByType
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataLastModifiedAt
+The timestamp of resource last modification (UTC)
+
+```yaml
+Type: System.DateTime
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataLastModifiedBy
+The identity that last modified the resource.
+
+```yaml
+Type: System.String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SystemDataLastModifiedByType
+The type of identity that last modified the resource.
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.CreatedByType
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Tag
 tags to be updated
 
@@ -467,7 +579,8 @@ Accept wildcard characters: False
 ```
 
 ### -VMTemplate
-VM template for sessionhosts configuration within hostpool.
+Deprecated: VM template for sessionhosts configuration within hostpool.
+This property has been deprecated.
 
 ```yaml
 Type: System.String
@@ -521,7 +634,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IHostPool
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IHostPool
 
 ## NOTES
 
@@ -532,17 +645,19 @@ COMPLEX PARAMETER PROPERTIES
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 
-`AGENTUPDATEMAINTENANCEWINDOW <IMaintenanceWindowPatchProperties[]>`: List of maintenance windows. Maintenance windows are 2 hours long.
+AGENTUPDATEMAINTENANCEWINDOW <IMaintenanceWindowPatchProperties[]>: List of maintenance windows. Maintenance windows are 2 hours long.
   - `[DayOfWeek <DayOfWeek?>]`: Day of the week.
   - `[Hour <Int32?>]`: The update start hour of the day. (0 - 23)
 
-`INPUTOBJECT <IDesktopVirtualizationIdentity>`: Identity Parameter
+INPUTOBJECT <IDesktopVirtualizationIdentity>: Identity Parameter
   - `[ApplicationGroupName <String>]`: The name of the application group
   - `[ApplicationName <String>]`: The name of the application within the specified application group
   - `[DesktopName <String>]`: The name of the desktop within the specified desktop group
   - `[HostPoolName <String>]`: The name of the host pool within the specified resource group
   - `[Id <String>]`: Resource identity path
   - `[MsixPackageFullName <String>]`: The version specific package full name of the MSIX package within specified hostpool
+  - `[OperationId <String>]`: The Guid of the operation.
+  - `[PrivateEndpointConnectionName <String>]`: The name of the private endpoint connection associated with the Azure resource
   - `[ResourceGroupName <String>]`: The name of the resource group. The name is case insensitive.
   - `[ScalingPlanName <String>]`: The name of the scaling plan.
   - `[ScalingPlanScheduleName <String>]`: The name of the ScalingPlanSchedule

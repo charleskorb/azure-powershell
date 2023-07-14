@@ -30,7 +30,7 @@ Get-AzWvdRegistrationInfo -ResourceGroupName rgName -HostPoolName hpName
 ```output
 ExpirationTime        RegistrationTokenOperation Token
 --------------        -------------------------- -----
-5/10/2023 12:00:00 PM None                       <base64 encoded string>
+5/10/2023 12:00:00 PM None                       \<base64 encoded string\>
 
 ```
 
