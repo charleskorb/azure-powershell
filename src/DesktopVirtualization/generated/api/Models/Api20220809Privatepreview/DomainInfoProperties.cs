@@ -1,0 +1,149 @@
+namespace Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview
+{
+    using static Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Extensions;
+
+    /// <summary>Domain configurations of session hosts.</summary>
+    public partial class DomainInfoProperties :
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IDomainInfoProperties,
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IDomainInfoPropertiesInternal
+    {
+
+        /// <summary>Backing field for <see cref="ActiveDirectoryInfo" /> property.</summary>
+        private Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoProperties _activeDirectoryInfo;
+
+        /// <summary>Active directory info. Only one should be populated based on the join type.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Origin(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.PropertyOrigin.Owned)]
+        internal Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoProperties ActiveDirectoryInfo { get => (this._activeDirectoryInfo = this._activeDirectoryInfo ?? new Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.ActiveDirectoryInfoProperties()); set => this._activeDirectoryInfo = value; }
+
+        /// <summary>The domain a virtual machine connected to a hostpool will join.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Origin(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.PropertyOrigin.Inlined)]
+        public string ActiveDirectoryInfoDomainName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoPropertiesInternal)ActiveDirectoryInfo).DomainName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoPropertiesInternal)ActiveDirectoryInfo).DomainName = value ?? null; }
+
+        /// <summary>The ou path.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Origin(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.PropertyOrigin.Inlined)]
+        public string ActiveDirectoryInfoOuPath { get => ((Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoPropertiesInternal)ActiveDirectoryInfo).OuPath; set => ((Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoPropertiesInternal)ActiveDirectoryInfo).OuPath = value ?? null; }
+
+        /// <summary>Backing field for <see cref="AzureActiveDirectoryInfo" /> property.</summary>
+        private Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IAzureActiveDirectoryInfoProperties _azureActiveDirectoryInfo;
+
+        /// <summary>
+        /// Azure active directory info. Only one should be populated based on the join type.
+        /// </summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Origin(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.PropertyOrigin.Owned)]
+        internal Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IAzureActiveDirectoryInfoProperties AzureActiveDirectoryInfo { get => (this._azureActiveDirectoryInfo = this._azureActiveDirectoryInfo ?? new Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.AzureActiveDirectoryInfoProperties()); set => this._azureActiveDirectoryInfo = value; }
+
+        /// <summary>The mdm guid.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Origin(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.PropertyOrigin.Inlined)]
+        public string AzureActiveDirectoryInfoMdmProviderGuid { get => ((Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IAzureActiveDirectoryInfoPropertiesInternal)AzureActiveDirectoryInfo).MdmProviderGuid; set => ((Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IAzureActiveDirectoryInfoPropertiesInternal)AzureActiveDirectoryInfo).MdmProviderGuid = value ?? null; }
+
+        /// <summary>The uri to access the secret that the password is stored in.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Origin(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.PropertyOrigin.Inlined)]
+        public string DomainCredentialsPasswordKeyVaultSecretUri { get => ((Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoPropertiesInternal)ActiveDirectoryInfo).DomainCredentialsPasswordKeyVaultSecretUri; set => ((Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoPropertiesInternal)ActiveDirectoryInfo).DomainCredentialsPasswordKeyVaultSecretUri = value ?? null; }
+
+        /// <summary>The uri to access the secret that the username is stored in.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Origin(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.PropertyOrigin.Inlined)]
+        public string DomainCredentialsUsernameKeyVaultSecretUri { get => ((Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoPropertiesInternal)ActiveDirectoryInfo).DomainCredentialsUsernameKeyVaultSecretUri; set => ((Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoPropertiesInternal)ActiveDirectoryInfo).DomainCredentialsUsernameKeyVaultSecretUri = value ?? null; }
+
+        /// <summary>Backing field for <see cref="JoinType" /> property.</summary>
+        private Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.DomainJoinType _joinType;
+
+        /// <summary>The type of domain join done by the virtual machine.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Origin(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.PropertyOrigin.Owned)]
+        public Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.DomainJoinType JoinType { get => this._joinType; set => this._joinType = value; }
+
+        /// <summary>Internal Acessors for ActiveDirectoryInfo</summary>
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoProperties Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IDomainInfoPropertiesInternal.ActiveDirectoryInfo { get => (this._activeDirectoryInfo = this._activeDirectoryInfo ?? new Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.ActiveDirectoryInfoProperties()); set { {_activeDirectoryInfo = value;} } }
+
+        /// <summary>Internal Acessors for ActiveDirectoryInfoDomainCredentials</summary>
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IKeyVaultCredentialsProperties Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IDomainInfoPropertiesInternal.ActiveDirectoryInfoDomainCredentials { get => ((Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoPropertiesInternal)ActiveDirectoryInfo).DomainCredentials; set => ((Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoPropertiesInternal)ActiveDirectoryInfo).DomainCredentials = value; }
+
+        /// <summary>Internal Acessors for AzureActiveDirectoryInfo</summary>
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IAzureActiveDirectoryInfoProperties Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IDomainInfoPropertiesInternal.AzureActiveDirectoryInfo { get => (this._azureActiveDirectoryInfo = this._azureActiveDirectoryInfo ?? new Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.AzureActiveDirectoryInfoProperties()); set { {_azureActiveDirectoryInfo = value;} } }
+
+        /// <summary>Creates an new <see cref="DomainInfoProperties" /> instance.</summary>
+        public DomainInfoProperties()
+        {
+
+        }
+    }
+    /// Domain configurations of session hosts.
+    public partial interface IDomainInfoProperties :
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.IJsonSerializable
+    {
+        /// <summary>The domain a virtual machine connected to a hostpool will join.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Info(
+        Required = false,
+        ReadOnly = false,
+        Description = @"The domain a virtual machine connected to a hostpool will join.",
+        SerializedName = @"domainName",
+        PossibleTypes = new [] { typeof(string) })]
+        string ActiveDirectoryInfoDomainName { get; set; }
+        /// <summary>The ou path.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Info(
+        Required = false,
+        ReadOnly = false,
+        Description = @"The ou path.",
+        SerializedName = @"ouPath",
+        PossibleTypes = new [] { typeof(string) })]
+        string ActiveDirectoryInfoOuPath { get; set; }
+        /// <summary>The mdm guid.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Info(
+        Required = false,
+        ReadOnly = false,
+        Description = @"The mdm guid.",
+        SerializedName = @"mdmProviderGuid",
+        PossibleTypes = new [] { typeof(string) })]
+        string AzureActiveDirectoryInfoMdmProviderGuid { get; set; }
+        /// <summary>The uri to access the secret that the password is stored in.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Info(
+        Required = false,
+        ReadOnly = false,
+        Description = @"The uri to access the secret that the password is stored in.",
+        SerializedName = @"passwordKeyVaultSecretUri",
+        PossibleTypes = new [] { typeof(string) })]
+        string DomainCredentialsPasswordKeyVaultSecretUri { get; set; }
+        /// <summary>The uri to access the secret that the username is stored in.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Info(
+        Required = false,
+        ReadOnly = false,
+        Description = @"The uri to access the secret that the username is stored in.",
+        SerializedName = @"usernameKeyVaultSecretUri",
+        PossibleTypes = new [] { typeof(string) })]
+        string DomainCredentialsUsernameKeyVaultSecretUri { get; set; }
+        /// <summary>The type of domain join done by the virtual machine.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Info(
+        Required = true,
+        ReadOnly = false,
+        Description = @"The type of domain join done by the virtual machine.",
+        SerializedName = @"joinType",
+        PossibleTypes = new [] { typeof(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.DomainJoinType) })]
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.DomainJoinType JoinType { get; set; }
+
+    }
+    /// Domain configurations of session hosts.
+    internal partial interface IDomainInfoPropertiesInternal
+
+    {
+        /// <summary>Active directory info. Only one should be populated based on the join type.</summary>
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IActiveDirectoryInfoProperties ActiveDirectoryInfo { get; set; }
+        /// <summary>Credentials needed to create the virtual machine.</summary>
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IKeyVaultCredentialsProperties ActiveDirectoryInfoDomainCredentials { get; set; }
+        /// <summary>The domain a virtual machine connected to a hostpool will join.</summary>
+        string ActiveDirectoryInfoDomainName { get; set; }
+        /// <summary>The ou path.</summary>
+        string ActiveDirectoryInfoOuPath { get; set; }
+        /// <summary>
+        /// Azure active directory info. Only one should be populated based on the join type.
+        /// </summary>
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IAzureActiveDirectoryInfoProperties AzureActiveDirectoryInfo { get; set; }
+        /// <summary>The mdm guid.</summary>
+        string AzureActiveDirectoryInfoMdmProviderGuid { get; set; }
+        /// <summary>The uri to access the secret that the password is stored in.</summary>
+        string DomainCredentialsPasswordKeyVaultSecretUri { get; set; }
+        /// <summary>The uri to access the secret that the username is stored in.</summary>
+        string DomainCredentialsUsernameKeyVaultSecretUri { get; set; }
+        /// <summary>The type of domain join done by the virtual machine.</summary>
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.DomainJoinType JoinType { get; set; }
+
+    }
+}

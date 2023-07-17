@@ -1,0 +1,46 @@
+namespace Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview
+{
+    using static Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Extensions;
+
+    /// <summary>Disk information.</summary>
+    public partial class DiskInfoPatchProperties :
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IDiskInfoPatchProperties,
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IDiskInfoPatchPropertiesInternal
+    {
+
+        /// <summary>Backing field for <see cref="Type" /> property.</summary>
+        private Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.VirtualMachineDiskType? _type;
+
+        /// <summary>The disk type used by virtual machine in hostpool session host.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Origin(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.PropertyOrigin.Owned)]
+        public Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.VirtualMachineDiskType? Type { get => this._type; set => this._type = value; }
+
+        /// <summary>Creates an new <see cref="DiskInfoPatchProperties" /> instance.</summary>
+        public DiskInfoPatchProperties()
+        {
+
+        }
+    }
+    /// Disk information.
+    public partial interface IDiskInfoPatchProperties :
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.IJsonSerializable
+    {
+        /// <summary>The disk type used by virtual machine in hostpool session host.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Info(
+        Required = false,
+        ReadOnly = false,
+        Description = @"The disk type used by virtual machine in hostpool session host.",
+        SerializedName = @"type",
+        PossibleTypes = new [] { typeof(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.VirtualMachineDiskType) })]
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.VirtualMachineDiskType? Type { get; set; }
+
+    }
+    /// Disk information.
+    internal partial interface IDiskInfoPatchPropertiesInternal
+
+    {
+        /// <summary>The disk type used by virtual machine in hostpool session host.</summary>
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.VirtualMachineDiskType? Type { get; set; }
+
+    }
+}

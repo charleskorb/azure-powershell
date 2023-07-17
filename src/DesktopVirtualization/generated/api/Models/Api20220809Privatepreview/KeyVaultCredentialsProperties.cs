@@ -1,0 +1,63 @@
+namespace Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview
+{
+    using static Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Extensions;
+
+    /// <summary>Credentials kept in the keyvault.</summary>
+    public partial class KeyVaultCredentialsProperties :
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IKeyVaultCredentialsProperties,
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.IKeyVaultCredentialsPropertiesInternal
+    {
+
+        /// <summary>Backing field for <see cref="PasswordKeyVaultSecretUri" /> property.</summary>
+        private string _passwordKeyVaultSecretUri;
+
+        /// <summary>The uri to access the secret that the password is stored in.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Origin(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.PropertyOrigin.Owned)]
+        public string PasswordKeyVaultSecretUri { get => this._passwordKeyVaultSecretUri; set => this._passwordKeyVaultSecretUri = value; }
+
+        /// <summary>Backing field for <see cref="UsernameKeyVaultSecretUri" /> property.</summary>
+        private string _usernameKeyVaultSecretUri;
+
+        /// <summary>The uri to access the secret that the username is stored in.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Origin(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.PropertyOrigin.Owned)]
+        public string UsernameKeyVaultSecretUri { get => this._usernameKeyVaultSecretUri; set => this._usernameKeyVaultSecretUri = value; }
+
+        /// <summary>Creates an new <see cref="KeyVaultCredentialsProperties" /> instance.</summary>
+        public KeyVaultCredentialsProperties()
+        {
+
+        }
+    }
+    /// Credentials kept in the keyvault.
+    public partial interface IKeyVaultCredentialsProperties :
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.IJsonSerializable
+    {
+        /// <summary>The uri to access the secret that the password is stored in.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Info(
+        Required = true,
+        ReadOnly = false,
+        Description = @"The uri to access the secret that the password is stored in.",
+        SerializedName = @"passwordKeyVaultSecretUri",
+        PossibleTypes = new [] { typeof(string) })]
+        string PasswordKeyVaultSecretUri { get; set; }
+        /// <summary>The uri to access the secret that the username is stored in.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Info(
+        Required = true,
+        ReadOnly = false,
+        Description = @"The uri to access the secret that the username is stored in.",
+        SerializedName = @"usernameKeyVaultSecretUri",
+        PossibleTypes = new [] { typeof(string) })]
+        string UsernameKeyVaultSecretUri { get; set; }
+
+    }
+    /// Credentials kept in the keyvault.
+    internal partial interface IKeyVaultCredentialsPropertiesInternal
+
+    {
+        /// <summary>The uri to access the secret that the password is stored in.</summary>
+        string PasswordKeyVaultSecretUri { get; set; }
+        /// <summary>The uri to access the secret that the username is stored in.</summary>
+        string UsernameKeyVaultSecretUri { get; set; }
+
+    }
+}

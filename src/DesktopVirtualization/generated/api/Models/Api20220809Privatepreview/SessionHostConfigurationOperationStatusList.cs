@@ -1,0 +1,68 @@
+namespace Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview
+{
+    using static Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Extensions;
+
+    /// <summary>List of OperationStatus definitions.</summary>
+    public partial class SessionHostConfigurationOperationStatusList :
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.ISessionHostConfigurationOperationStatusList,
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.ISessionHostConfigurationOperationStatusListInternal
+    {
+
+        /// <summary>Internal Acessors for NextLink</summary>
+        string Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.ISessionHostConfigurationOperationStatusListInternal.NextLink { get => this._nextLink; set { {_nextLink = value;} } }
+
+        /// <summary>Backing field for <see cref="NextLink" /> property.</summary>
+        private string _nextLink;
+
+        /// <summary>Link to the next page of results.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Origin(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.PropertyOrigin.Owned)]
+        public string NextLink { get => this._nextLink; }
+
+        /// <summary>Backing field for <see cref="Value" /> property.</summary>
+        private Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.ISessionHostConfigurationOperationStatus[] _value;
+
+        /// <summary>List of OperationStatus definitions.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Origin(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.PropertyOrigin.Owned)]
+        public Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.ISessionHostConfigurationOperationStatus[] Value { get => this._value; set => this._value = value; }
+
+        /// <summary>
+        /// Creates an new <see cref="SessionHostConfigurationOperationStatusList" /> instance.
+        /// </summary>
+        public SessionHostConfigurationOperationStatusList()
+        {
+
+        }
+    }
+    /// List of OperationStatus definitions.
+    public partial interface ISessionHostConfigurationOperationStatusList :
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.IJsonSerializable
+    {
+        /// <summary>Link to the next page of results.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Info(
+        Required = false,
+        ReadOnly = true,
+        Description = @"Link to the next page of results.",
+        SerializedName = @"nextLink",
+        PossibleTypes = new [] { typeof(string) })]
+        string NextLink { get;  }
+        /// <summary>List of OperationStatus definitions.</summary>
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Info(
+        Required = false,
+        ReadOnly = false,
+        Description = @"List of OperationStatus definitions.",
+        SerializedName = @"value",
+        PossibleTypes = new [] { typeof(Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.ISessionHostConfigurationOperationStatus) })]
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.ISessionHostConfigurationOperationStatus[] Value { get; set; }
+
+    }
+    /// List of OperationStatus definitions.
+    internal partial interface ISessionHostConfigurationOperationStatusListInternal
+
+    {
+        /// <summary>Link to the next page of results.</summary>
+        string NextLink { get; set; }
+        /// <summary>List of OperationStatus definitions.</summary>
+        Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220809Privatepreview.ISessionHostConfigurationOperationStatus[] Value { get; set; }
+
+    }
+}
