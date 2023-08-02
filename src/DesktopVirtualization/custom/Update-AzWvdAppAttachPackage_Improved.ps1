@@ -306,14 +306,36 @@ function Update-AzWvdAppAttachPackage_Improved {
         }
 
         try {
+            [regex]$guidRegex = '(?im)^[{(]?[0-9A-F]{8}[-]?(?:[0-9A-F]{4}[-]?){3}[0-9A-F]{12}[)}]?$'
+            [regex]$emailRegex = '^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$'
             if($null -ne $savePermissionsToRemove) {
                 foreach ($item in $savePermissionsToRemove) {
-                    Remove-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                    if ($item -match $guidRegex) {
+                        Remove-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                    } 
+                    elseif ($item -match $emailRegex) {
+                        Remove-AzRoleAssignment -SignInName $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                    }
+                    # if not email or guid, assume group
+                    else {
+                        $group = Get-MgGroup -Filter "DisplayName eq '$item'"
+                        Remove-AzRoleAssignment -ObjectId $group.Id -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                    }
                 }
             }
             if($null -ne $savePermissionsToAdd) {
                 foreach ($item in $savePermissionsToAdd) {
-                    New-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                    if ($item -match $guidRegex) {
+                        New-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                    } 
+                    elseif ($item -match $emailRegex) {
+                        New-AzRoleAssignment -SignInName $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                    }
+                    # if not email or guid, assume group
+                    else {
+                        $group = Get-MgGroup -Filter "DisplayName eq '$item'"
+                        New-AzRoleAssignment -ObjectId $group.Id -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                    }                
                 }
             }
         }
