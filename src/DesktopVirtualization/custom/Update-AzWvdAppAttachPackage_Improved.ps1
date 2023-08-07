@@ -306,11 +306,11 @@ function Update-AzWvdAppAttachPackage_Improved {
         }
 
         try {
-            [regex]$guidRegex = '(?im)^[{(]?[0-9A-F]{8}[-]?(?:[0-9A-F]{4}[-]?){3}[0-9A-F]{12}[)}]?$'
             [regex]$emailRegex = '^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$'
+            $potentialGuid = [System.Guid]::empty
             if($null -ne $savePermissionsToRemove) {
                 foreach ($item in $savePermissionsToRemove) {
-                    if ($item -match $guidRegex) {
+                    if ([System.Guid]::TryParse($item,[System.Management.Automation.PSReference]$potentialGuid)) {
                         Remove-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
                     } 
                     elseif ($item -match $emailRegex) {
@@ -325,7 +325,7 @@ function Update-AzWvdAppAttachPackage_Improved {
             }
             if($null -ne $savePermissionsToAdd) {
                 foreach ($item in $savePermissionsToAdd) {
-                    if ($item -match $guidRegex) {
+                    if ([System.Guid]::TryParse($item,[System.Management.Automation.PSReference]$potentialGuid)) {
                         New-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
                     } 
                     elseif ($item -match $emailRegex) {
