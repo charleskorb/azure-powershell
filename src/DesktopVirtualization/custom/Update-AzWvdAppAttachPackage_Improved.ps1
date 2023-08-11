@@ -309,40 +309,86 @@ function Update-AzWvdAppAttachPackage_Improved {
             [regex]$emailRegex = '^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$'
             $potentialGuid = [System.Guid]::empty
             if($null -ne $savePermissionsToRemove) {
-                foreach ($item in $savePermissionsToRemove) {
+                foreach ($item in $savePermissionsToRemove) {                    
                     if ([System.Guid]::TryParse($item,[System.Management.Automation.PSReference]$potentialGuid)) {
-                        Remove-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        $role = Get-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        if ($null -ne $role) {
+                            Remove-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+
+                        }
                     } 
                     elseif ($item -match $emailRegex) {
-                        Remove-AzRoleAssignment -SignInName $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        $role = Get-AzRoleAssignment -SignInName $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        if ($null -ne $role) {
+                            Remove-AzRoleAssignment -SignInName $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        }
                     }
                     # if not email or guid, assume group
                     else {
                         $group = Get-MgGroup -Filter "DisplayName eq '$item'"
-                        Remove-AzRoleAssignment -ObjectId $group.Id -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        $role = Get-AzRoleAssignment -ObjectId $group.Id -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        if ($null -ne $role) {
+                            Remove-AzRoleAssignment -ObjectId $group.Id -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        }
                     }
                 }
             }
             if($null -ne $savePermissionsToAdd) {
                 foreach ($item in $savePermissionsToAdd) {
                     if ([System.Guid]::TryParse($item,[System.Management.Automation.PSReference]$potentialGuid)) {
-                        New-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        $role = Get-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        if ($null -eq $role) {
+                            New-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        }
                     } 
                     elseif ($item -match $emailRegex) {
-                        New-AzRoleAssignment -SignInName $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        $role = Get-AzRoleAssignment -SignInName $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        if ($null -eq $role) {
+                            New-AzRoleAssignment -SignInName $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        }
                     }
                     # if not email or guid, assume group
                     else {
                         $group = Get-MgGroup -Filter "DisplayName eq '$item'"
-                        New-AzRoleAssignment -ObjectId $group.Id -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                        if ($null -ne $group) {
+                            if ($group.IsAssignableToRole -ne $false) { # this is a nullable field and at least some groups where this is null are assignable
+                                $retryCount = 0
+                                $retryMax = 5
+                                $retryDelay = 2
+                                $maximalWait = (Get-Date).AddSeconds(10)
+                                while ($retryCount -lt $retryMax -and (Get-Date) -lt $maximalWait) {
+                                    try {
+                                        $retryCount++
+                                        $role = Get-AzRoleAssignment -ObjectId $group.Id -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                                        if ($null -eq $role) {
+                                            New-AzRoleAssignment -ObjectId $group.Id -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
+                                        }
+                                    }
+                                    catch {
+                                        if ($retryCount -eq $retryMax -or (Get-Date) -gt $maximalWait) {
+                                            throw $_
+                                        }
+                                        else {
+                                            Start-Sleep -Seconds $retryDelay
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                Write-Warning "Group $item is not assignable to a role, skipping assigning permissions to this group"
+                            }
+                        }
+                        else {
+                            Write-Warning "Unable to find group $item, skipping assigning permissions to this group"
+                        }
                     }                
                 }
             }
         }
         catch {
-            Write-Host "An exception occured adjusting permissions, please manually check permissions: " + $_
+            Write-Error ("An exception occured adjusting permissions, please manually check permissions: " + $_)
         }
 
-        $appAttachPackage
+        return $appAttachPackage
     }
 }

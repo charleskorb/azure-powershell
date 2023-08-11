@@ -252,6 +252,7 @@ PACKAGETOREMOVE <AppAttachPackage>: App Attach Package to be Removed
   - `[ImageCertificateName <String>]`: Certificate name found in the appxmanifest.xml. 
   - `[ImageDisplayName <String>]`: User friendly Name to be displayed in the portal. 
   - `[ImageIsActive <Boolean?>]`: Make this version of the package the active one across the hostpool. 
+  - `[ImageIsPackageTimestamped <Boolean?>]`: Is package timestamped so it can ignore the certificate expiry date
   - `[ImageIsRegularRegistration <Boolean?>]`: Specifies how to register Package in feed.
   - `[ImageLastUpdated <DateTime?>]`: Date Package was last updated, found in the appxmanifest.xml. 
   - `[ImagePackageAlias <String>]`: Alias of MSIX Package.
@@ -261,6 +262,7 @@ PACKAGETOREMOVE <AppAttachPackage>: App Attach Package to be Removed
     - `[Description <String>]`: Description of Package Application.
     - `[FriendlyName <String>]`: User friendly name.
     - `[IconImageName <String>]`: User friendly name.
+    - `[IconIndexMaxValue <Int32?>]`: Maximum index of icons in the executable in the image
     - `[RawIcon <Byte[]>]`: the icon a 64 bit string as a byte array.
     - `[RawPng <Byte[]>]`: the icon a 64 bit string as a byte array.
   - `[ImagePackageDependency <IMsixPackageDependencies[]>]`: List of package dependencies. 

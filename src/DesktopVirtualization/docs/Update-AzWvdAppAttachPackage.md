@@ -17,8 +17,9 @@ Update an App Attach Package
 Update-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -Location <String>
  [-SubscriptionId <String>] [-FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure>]
  [-HostPoolReference <String[]>] [-ImageCertificateExpiry <DateTime>] [-ImageCertificateName <String>]
- [-ImageDisplayName <String>] [-ImageIsActive] [-ImageIsRegularRegistration] [-ImageLastUpdated <DateTime>]
- [-ImagePackageAlias <String>] [-ImagePackageApplication <IMsixPackageApplications[]>]
+ [-ImageDisplayName <String>] [-ImageIsActive] [-ImageIsPackageTimestamped] [-ImageIsRegularRegistration]
+ [-ImageLastUpdated <DateTime>] [-ImagePackageAlias <String>]
+ [-ImagePackageApplication <IMsixPackageApplications[]>]
  [-ImagePackageDependency <IMsixPackageDependencies[]>] [-ImagePackageFamilyName <String>]
  [-ImagePackageFullName <String>] [-ImagePackageName <String>] [-ImagePackageRelativePath <String>]
  [-ImagePath <String>] [-ImageVersion <String>] [-KeyVaultUrl <String>] [-SystemDataCreatedAt <DateTime>]
@@ -55,8 +56,8 @@ Update-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -Locatio
 Update-AzWvdAppAttachPackage -InputObject <IDesktopVirtualizationIdentity> -Location <String>
  [-FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure>] [-HostPoolReference <String[]>]
  [-ImageCertificateExpiry <DateTime>] [-ImageCertificateName <String>] [-ImageDisplayName <String>]
- [-ImageIsActive] [-ImageIsRegularRegistration] [-ImageLastUpdated <DateTime>] [-ImagePackageAlias <String>]
- [-ImagePackageApplication <IMsixPackageApplications[]>]
+ [-ImageIsActive] [-ImageIsPackageTimestamped] [-ImageIsRegularRegistration] [-ImageLastUpdated <DateTime>]
+ [-ImagePackageAlias <String>] [-ImagePackageApplication <IMsixPackageApplications[]>]
  [-ImagePackageDependency <IMsixPackageDependencies[]>] [-ImagePackageFamilyName <String>]
  [-ImagePackageFullName <String>] [-ImagePackageName <String>] [-ImagePackageRelativePath <String>]
  [-ImagePath <String>] [-ImageVersion <String>] [-KeyVaultUrl <String>] [-SystemDataCreatedAt <DateTime>]
@@ -316,6 +317,21 @@ Accept wildcard characters: False
 
 ### -ImageIsActive
 Make this version of the package the active one across the hostpool.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+Parameter Sets: UpdateExpanded, UpdateViaIdentityExpanded
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ImageIsPackageTimestamped
+Is package timestamped so it can ignore the certificate expiry date
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
@@ -967,6 +983,7 @@ IMAGEOBJECTS <ExpandMsixImage[]>:
   - `[DisplayName <String>]`: User friendly Name to be displayed in the portal. 
   - `[ImagePath <String>]`: VHD/CIM image path on Network Share.
   - `[IsActive <Boolean?>]`: Make this version of the package the active one across the hostpool. 
+  - `[IsPackageTimestamped <Boolean?>]`: Is package timestamped so it can ignore the certificate expiry date
   - `[IsRegularRegistration <Boolean?>]`: Specifies how to register Package in feed.
   - `[LastUpdated <DateTime?>]`: Date Package was last updated, found in the appxmanifest.xml. 
   - `[PackageAlias <String>]`: Alias of MSIX Package.
@@ -976,6 +993,7 @@ IMAGEOBJECTS <ExpandMsixImage[]>:
     - `[Description <String>]`: Description of Package Application.
     - `[FriendlyName <String>]`: User friendly name.
     - `[IconImageName <String>]`: User friendly name.
+    - `[IconIndexMaxValue <Int32?>]`: Maximum index of icons in the executable in the image
     - `[RawIcon <Byte[]>]`: the icon a 64 bit string as a byte array.
     - `[RawPng <Byte[]>]`: the icon a 64 bit string as a byte array.
   - `[PackageDependency <IMsixPackageDependencies[]>]`: List of package dependencies. 
@@ -994,6 +1012,7 @@ IMAGEPACKAGEAPPLICATION <IMsixPackageApplications[]>: List of package applicatio
   - `[Description <String>]`: Description of Package Application.
   - `[FriendlyName <String>]`: User friendly name.
   - `[IconImageName <String>]`: User friendly name.
+  - `[IconIndexMaxValue <Int32?>]`: Maximum index of icons in the executable in the image
   - `[RawIcon <Byte[]>]`: the icon a 64 bit string as a byte array.
   - `[RawPng <Byte[]>]`: the icon a 64 bit string as a byte array.
 
@@ -1025,6 +1044,7 @@ PACKAGEAPPLICATION <IMsixPackageApplications[]>: List of package applications.
   - `[Description <String>]`: Description of Package Application.
   - `[FriendlyName <String>]`: User friendly name.
   - `[IconImageName <String>]`: User friendly name.
+  - `[IconIndexMaxValue <Int32?>]`: Maximum index of icons in the executable in the image
   - `[RawIcon <Byte[]>]`: the icon a 64 bit string as a byte array.
   - `[RawPng <Byte[]>]`: the icon a 64 bit string as a byte array.
 

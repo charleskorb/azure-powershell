@@ -142,12 +142,11 @@ function Expand-AzWvdMsixImage_Improved {
                 }
             }
             if ($archCount -eq 0 -and $saveArchitectureSpecified) {
-                throw "No " + $saveArchitecture + " images found in virtual disk"
+                Write-Error "No " + $saveArchitecture + " images found in virtual disk"
             } elseif ($archCount -eq 0 -and !$saveArchitectureSpecified) {
                 return $ImageList
             }
             return $OutputList
         }
-
     }
 }

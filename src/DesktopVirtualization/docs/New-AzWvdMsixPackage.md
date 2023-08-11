@@ -408,6 +408,7 @@ PACKAGEAPPLICATION <IMsixPackageApplications[]>: List of package applications.
   - `[Description <String>]`: Description of Package Application.
   - `[FriendlyName <String>]`: User friendly name.
   - `[IconImageName <String>]`: User friendly name.
+  - `[IconIndexMaxValue <Int32?>]`: Maximum index of icons in the executable in the image
   - `[RawIcon <Byte[]>]`: the icon a 64 bit string as a byte array.
   - `[RawPng <Byte[]>]`: the icon a 64 bit string as a byte array.
 

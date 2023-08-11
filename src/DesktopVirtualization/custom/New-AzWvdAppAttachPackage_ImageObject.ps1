@@ -211,7 +211,7 @@ function New-AzWvdAppAttachPackage_ImageObject {
             $finalParameters.Add($key, $PSBoundParameters[$key])
         }
        
-        $appAttachPackage = New-AzWvdAppAttachPackage_Improved @finalParameters
+        return New-AzWvdAppAttachPackage_Improved @finalParameters
 
     }
 }
