@@ -84,6 +84,12 @@ function Update-AzWvdAppAttachPackage_ImageObject {
         [System.String[]]
         #List of object ids to Add permissions for
         ${PermissionsToAdd},
+
+        [Parameter()]
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
+        [System.Management.Automation.SwitchParameter]
+        # Specifies if the package should be returned
+        ${PassThru},
     
         [Parameter()]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
@@ -207,6 +213,10 @@ function Update-AzWvdAppAttachPackage_ImageObject {
             $finalParameters.Add($key, $PSBoundParameters[$key])
         }
 
-        return Update-AzWvdAppAttachPackage_Improved @finalParameters
+        $appAttachPackage = Update-AzWvdAppAttachPackage_Improved @finalParameters
+
+        if ($PassThru) {
+            return $appAttachPackage
+        }
     }
 }

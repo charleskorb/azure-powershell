@@ -34,7 +34,7 @@ Update-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -Locatio
 Update-AzWvdAppAttachPackage [-ImageObjects] <ExpandMsixImage[]> -Name <String> -ResourceGroupName <String>
  -Location <String> [-SubscriptionId <String>] [-DisplayName <String>]
  [-FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure>] [-HostPoolReference <String[]>]
- [-IsActive] [-IsLogonBlocking] [-KeyVaultUrl <String>] [-PermissionsToAdd <String[]>]
+ [-IsActive] [-IsLogonBlocking] [-KeyVaultUrl <String>] [-PassThru] [-PermissionsToAdd <String[]>]
  [-PermissionsToRemove <String[]>] [-Tag <Hashtable>] [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
@@ -46,7 +46,7 @@ Update-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -Locatio
  [-HostPoolReference <String[]>] [-ImagePath <String>] [-IsActive] [-IsLogonBlocking] [-KeyVaultUrl <String>]
  [-LastUpdated <DateTime>] [-PackageAlias <String>] [-PackageApplication <IMsixPackageApplications[]>]
  [-PackageDependency <IMsixPackageDependencies[]>] [-PackageFamilyName <String>] [-PackageFullName <String>]
- [-PackageName <String>] [-PackageRelativePath <String>] [-PermissionsToAdd <String[]>]
+ [-PackageName <String>] [-PackageRelativePath <String>] [-PassThru] [-PermissionsToAdd <String[]>]
  [-PermissionsToRemove <String[]>] [-Tag <Hashtable>] [-Version <String>] [-DefaultProfile <PSObject>]
  [<CommonParameters>]
 ```
@@ -734,6 +734,21 @@ Relative Path to the package inside the image.
 ```yaml
 Type: System.String
 Parameter Sets: Improved
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+Parameter Sets: ImageObject, Improved
 Aliases:
 
 Required: False

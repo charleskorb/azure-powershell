@@ -34,7 +34,7 @@ New-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -Location <
 New-AzWvdAppAttachPackage [-ImageObjects] <ExpandMsixImage[]> -Name <String> -ResourceGroupName <String>
  -Location <String> [-SubscriptionId <String>] [-DisplayName <String>]
  [-FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure>] [-HostPoolReference <String[]>]
- [-IsActive] [-IsLogonBlocking] [-KeyVaultUrl <String>] [-PermissionsToAdd <String[]>]
+ [-IsActive] [-IsLogonBlocking] [-KeyVaultUrl <String>] [-PassThru] [-PermissionsToAdd <String[]>]
  [-PermissionsToRemove <String[]>] [-Tag <Hashtable>] [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
@@ -47,7 +47,7 @@ New-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -ImagePath 
  [-FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure>] [-HostPoolReference <String[]>]
  [-IsActive] [-IsLogonBlocking] [-KeyVaultUrl <String>] [-PackageAlias <String>]
  [-PackageApplication <IMsixPackageApplications[]>] [-PackageDependency <IMsixPackageDependencies[]>]
- [-PermissionsToAdd <String[]>] [-PermissionsToRemove <String[]>] [-Tag <Hashtable>]
+ [-PassThru] [-PermissionsToAdd <String[]>] [-PermissionsToRemove <String[]>] [-Tag <Hashtable>]
  [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
@@ -739,6 +739,21 @@ Parameter Sets: Improved
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+Parameter Sets: ImageObject, Improved
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

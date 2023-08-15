@@ -24,9 +24,9 @@ function Expand-AzWvdMsixImage_Improved {
         [System.String]
         ${Uri},
 
-        # Validate set taken from options enumerated at https://learn.microsoft.com/en-us/windows/msix/package/device-architecture
+        # Validate set taken from options enumerated at https://learn.microsoft.com/en-us/windows/apps/desktop/modernize/package-identity-overview#package-identity-fields-limits
         [Parameter(HelpMessage = 'Version of image to return')]
-        [ValidateSet("x86", "x64", "ARM", "ARM64", "ALL")]
+        [ValidateSet("x86", "x64", "ARM", "ARM64", "x86a64", "neutral", "ALL")]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         ${PackageArchitecture},
@@ -136,7 +136,7 @@ function Expand-AzWvdMsixImage_Improved {
             $archCount = 0
             $OutputList = @()
             foreach($Image in $ImageList) {
-                if ($Image.PackageFullName.Contains("_" + $saveArchitecture + "_")) {
+                if ($Image.PackageFullName -like ("*_" + $saveArchitecture + "_*")) {
                     $archCount++
                     $OutputList += $Image
                 }

@@ -152,6 +152,12 @@ function Update-AzWvdAppAttachPackage_Improved {
         [System.String[]]
         #List of object ids to Add permissions for
         ${PermissionsToAdd},
+        
+        [Parameter()]
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
+        [System.Management.Automation.SwitchParameter]
+        # Specifies if the package should be returned
+        ${PassThru},
     
         [Parameter()]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
@@ -304,13 +310,12 @@ function Update-AzWvdAppAttachPackage_Improved {
         } else {
             $appAttachPackage = Update-AzWvdAppAttachPackage @finalParameters
         }
-
-        try {
-            [regex]$emailRegex = '^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$'
-            $potentialGuid = [System.Guid]::empty
-            if($null -ne $savePermissionsToRemove) {
-                foreach ($item in $savePermissionsToRemove) {                    
-                    if ([System.Guid]::TryParse($item,[System.Management.Automation.PSReference]$potentialGuid)) {
+        [regex]$emailRegex = '^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$'
+        $potentialGuid = [System.Guid]::empty
+        if ($null -ne $savePermissionsToRemove) {
+            foreach ($item in $savePermissionsToRemove) { 
+                try {                   
+                    if ([System.Guid]::TryParse($item, [System.Management.Automation.PSReference]$potentialGuid)) {
                         $role = Get-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
                         if ($null -ne $role) {
                             Remove-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
@@ -331,11 +336,17 @@ function Update-AzWvdAppAttachPackage_Improved {
                             Remove-AzRoleAssignment -ObjectId $group.Id -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
                         }
                     }
+
+                }
+                catch {
+                    Write-Error ("An exception occured removing permissions for $item, please manually check permissions: " + $_)
                 }
             }
-            if($null -ne $savePermissionsToAdd) {
-                foreach ($item in $savePermissionsToAdd) {
-                    if ([System.Guid]::TryParse($item,[System.Management.Automation.PSReference]$potentialGuid)) {
+        }
+        if ($null -ne $savePermissionsToAdd) {
+            foreach ($item in $savePermissionsToAdd) {
+                try {
+                    if ([System.Guid]::TryParse($item, [System.Management.Automation.PSReference]$potentialGuid)) {
                         $role = Get-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
                         if ($null -eq $role) {
                             New-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
@@ -351,7 +362,8 @@ function Update-AzWvdAppAttachPackage_Improved {
                     else {
                         $group = Get-MgGroup -Filter "DisplayName eq '$item'"
                         if ($null -ne $group) {
-                            if ($group.IsAssignableToRole -ne $false) { # this is a nullable field and at least some groups where this is null are assignable
+                            if ($group.IsAssignableToRole -ne $false) {
+                                # this is a nullable field and at least some groups where this is null are assignable
                                 $retryCount = 0
                                 $retryMax = 5
                                 $retryDelay = 2
@@ -381,14 +393,15 @@ function Update-AzWvdAppAttachPackage_Improved {
                         else {
                             Write-Warning "Unable to find group $item, skipping assigning permissions to this group"
                         }
-                    }                
+                    }        
+                }
+                catch {
+                    Write-Error ("An exception occured adding permissions for $item, please manually check permissions: " + $_)
                 }
             }
         }
-        catch {
-            Write-Error ("An exception occured adjusting permissions, please manually check permissions: " + $_)
+        if ($PassThru) {
+            return $appAttachPackage
         }
-
-        return $appAttachPackage
     }
 }

@@ -66,7 +66,13 @@ function New-AzWvdAppAttachPackage_ImageObject {
         [System.Management.Automation.SwitchParameter]
         # Specifies how to register Package in feed.
         ${IsLogonBlocking},
-    
+
+        [Parameter()]
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
+        [System.Management.Automation.SwitchParameter]
+        # Specifies if the package should be returned
+        ${PassThru},
+
         [Parameter()]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
@@ -155,17 +161,25 @@ function New-AzWvdAppAttachPackage_ImageObject {
         }
         else {
             $x64Count = 0
+            $NeutralCount = 0
             foreach($Image in $ImageObjects) {
-                if ($Image.PackageFullName.Contains("_x64_")) {
+                if ($Image.PackageFullName -like ("*_x64_*")) {
                     $x64Count++
                     $ImageObject = $Image
                 }
+                if ($Image.PackageFullName -like ("*_neutral_*")) {
+                    $NeutralImage = $Image
+                    $NeutralCount++
+                }
             }
-            if ($x64Count -gt 1) {
+            if (($x64Count -gt 1 -and ($NeutralCount -gt 1 -or $NeutralCount -eq 0)) -or ($x64Count -eq 0 -and $NeutralCount -gt 1)) {
                 throw "More than one x64 image in provided list, please provide a specific image to create a package object"
             }
-            if ($x64Count -lt 1) {
+            if ($x64Count -lt 1 -and $NeutralCount -eq 0) {
                 throw "No x64 images found in provided list, please provide a specific image to create a package object"
+            }
+            else {
+                $ImageObject = $NeutralImage
             }
         }
 
@@ -211,7 +225,11 @@ function New-AzWvdAppAttachPackage_ImageObject {
             $finalParameters.Add($key, $PSBoundParameters[$key])
         }
        
-        return New-AzWvdAppAttachPackage_Improved @finalParameters
+        $appAttachPackage = New-AzWvdAppAttachPackage_Improved @finalParameters
+
+        if ($PassThru) {
+            return $appAttachPackage
+        }
 
     }
 }

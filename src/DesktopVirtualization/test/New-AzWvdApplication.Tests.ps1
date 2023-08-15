@@ -116,8 +116,8 @@ Describe 'New-AzWvdApplication' {
             $string1 = "some image"
             $data1 = $enc.GetBytes($string1) 
 
-            $apps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IMsixPackageApplications]@{appId = 'MsixTest_Application_Id'; description = 'testing from ps'; appUserModelID = 'MsixTest_Application_ModelID'; friendlyName = 'some name'; iconImageName = 'Apptile'; rawIcon = $data1; rawPng = $data1 })
-            $deps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.IMsixPackageDependencies]@{dependencyName = 'MsixTest_Dependency_Name'; publisher = 'MsixTest_Dependency_Publisher'; minVersion = '0.0.0.42' })   
+            $apps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.IMsixPackageApplications]@{appId = 'MsixTest_Application_Id'; description = 'testing from ps'; appUserModelID = 'MsixTest_Application_ModelID'; friendlyName = 'some name'; iconImageName = 'Apptile'; rawIcon = $data1; rawPng = $data1 })
+            $deps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.IMsixPackageDependencies]@{dependencyName = 'MsixTest_Dependency_Name'; publisher = 'MsixTest_Dependency_Publisher'; minVersion = '0.0.0.42' })   
 
             $package = New-AzWvdMsixPackage -FullName MsixTest_FullName_UnitTest `
                 -HostPoolName $env.HostPool `
@@ -180,8 +180,8 @@ Describe 'New-AzWvdApplication' {
             $string1 = "some image"
             $data1 = $enc.GetBytes($string1) 
 
-            $apps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.MsixPackageApplications]@{appId = 'MsixTest_Application_Id'; description = 'testing from ps'; appUserModelID = 'MsixTest_Application_ModelID'; friendlyName = 'some name'; iconImageName = 'Apptile'; rawIcon = $data1; rawPng = $data1 })
-            $deps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api202209.MsixPackageDependencies]@{dependencyName = 'MsixTest_Dependency_Name'; publisher = 'MsixTest_Dependency_Publisher'; minVersion = '0.0.0.42' })   
+            $apps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.MsixPackageApplications]@{appId = 'MsixTest_Application_Id'; description = 'testing from ps'; appUserModelID = 'MsixTest_Application_ModelID'; friendlyName = 'some name'; iconImageName = 'Apptile'; rawIcon = $data1; rawPng = $data1 })
+            $deps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.MsixPackageDependencies]@{dependencyName = 'MsixTest_Dependency_Name'; publisher = 'MsixTest_Dependency_Publisher'; minVersion = '0.0.0.42' })   
 
             $applicationGroup = New-AzWvdApplicationGroup -SubscriptionId $env.SubscriptionId `
                                 -ResourceGroupName $env.ResourceGroup `
@@ -250,6 +250,145 @@ Describe 'New-AzWvdApplication' {
             $applicationGroup = Remove-AzWvdApplicationGroup -SubscriptionId $env.SubscriptionId `
                                 -ResourceGroupName $env.ResourceGroup `
                                 -Name $env.RemoteApplicationGroup
+        }
+    }
+
+    It 'Create_AppAttachPackageApplication' {
+        try{
+            $enc = [system.Text.Encoding]::UTF8
+            $string1 = "some image"
+            $data1 = $enc.GetBytes($string1) 
+
+            $apps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.MsixPackageApplications]@{appId = 'MsixTest_Application_Id'; description = 'testing from ps'; appUserModelID = 'MsixTest_Application_ModelID'; friendlyName = 'some name'; iconImageName = 'Apptile'; rawIcon = $data1; rawPng = $data1 })
+            $deps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.MsixPackageDependencies]@{dependencyName = 'MsixTest_Dependency_Name'; publisher = 'MsixTest_Dependency_Publisher'; minVersion = '0.0.0.42' })   
+
+            $applicationGroup = New-AzWvdApplicationGroup -SubscriptionId $env.SubscriptionId `
+                                -ResourceGroupName $env.ResourceGroup `
+                                -Name $env.DesktopApplicationGroup `
+                                -Location $env.Location `
+                                -FriendlyName 'fri' `
+                                -Description 'des' `
+                                -HostPoolArmPath $env.HostPoolArmPath `
+                                -ApplicationGroupType 'Desktop'
+
+            $package_created_1 = New-AzWvdAppAttachPackage -Name "TestPackage" `
+                                -ImagePackageFullName 'AATest_FullName_UnitTest' `
+                                -ResourceGroupName $env.ResourceGroup `
+                                -SubscriptionId $env.SubscriptionId `
+                                -Location $env.Location `
+                                -ImageDisplayName 'UnitTest-MSIXPackage' `
+                                -ImagePath 'C:\\appattach\SingleMsix.vhd' `
+                                -ImageIsActive `
+                                -ImageIsRegularRegistration `
+                                -ImageLastUpdated '0001-01-01T00:00:00' `
+                                -ImagePackageApplication $apps `
+                                -ImagePackageDependency $deps `
+                                -ImagePackageFamilyName 'MsixUnitTest_FamilyName' `
+                                -ImagePackageName 'MsixUnitTest_Name' `
+                                -ImagePackageRelativePath 'MsixUnitTest_RelativePackageRoot' `
+                                -ImageVersion '0.0.18838.722' 
+
+            $package_created_1 | New-AzWvdApplication -GroupName $env.DesktopApplicationGroup `
+                -Name UnitTest-MSIX-Application `
+                -ResourceGroupName $env.ResourceGroup `
+                -SubscriptionId $env.SubscriptionId `
+                -ApplicationType 1 `
+                -Description 'Unit Test MSIX Application' `
+                -FriendlyName 'friendlyname'`
+                -IconIndex 0
+
+            $application = Get-AzWvdApplication -ResourceGroupName $env.ResourceGroup `
+                -SubscriptionId $env.SubscriptionId `
+                -GroupName $env.DesktopApplicationGroup `
+                -Name UnitTest-MSIX-Application
+
+            $application.Name | Should -Be 'ApplicationGroupPowershell1/UnitTest-MSIX-Application'
+            $application.FriendlyName | Should -Be 'friendlyname'
+            $application.Description | Should -Be 'Unit Test MSIX Application'
+            $application.IconIndex | Should -Be 0
+            $application.MsixPackageFamilyName | Should -Be 'MsixUnitTest_FamilyName'
+            $application.ShowInPortal | Should -Be $false
+            $application.MsixPackageApplicationId | should -Be 'MsixTest_Application_Id'
+
+            $application = Remove-AzWvdApplication -GroupName $env.DesktopApplicationGroup `
+                -Name UnitTest-MSIX-Application `
+                -ResourceGroupName $env.ResourceGroup `
+                -SubscriptionId $env.SubscriptionId 
+
+        }
+        finally{
+            $package = Remove-AzWvdAppAttachPackage -Name 'TestPackage' `
+                -ResourceGroupName $env.ResourceGroup `
+                -SubscriptionId $env.SubscriptionId 
+
+            $applicationGroup = Remove-AzWvdApplicationGroup -SubscriptionId $env.SubscriptionId `
+                                -ResourceGroupName $env.ResourceGroup `
+                                -Name $env.DesktopApplicationGroup
+        }
+    }
+
+    It 'Create_AppAttachPackageApplication_TooManyApps' {
+        try{
+
+            $enc = [system.Text.Encoding]::UTF8
+            $string1 = "some image"
+            $data1 = $enc.GetBytes($string1) 
+
+            $apps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.MsixPackageApplications]@{appId = 'MsixTest_Application_Id'; description = 'testing from ps'; appUserModelID = 'MsixTest_Application_ModelID'; friendlyName = 'some name'; iconImageName = 'Apptile'; rawIcon = $data1; rawPng = $data1 },
+                       [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.MsixPackageApplications]@{appId = 'MsixTest_Application_Id2'; description = 'testing from ps'; appUserModelID = 'MsixTest_Application_ModelID'; friendlyName = 'some name'; iconImageName = 'Apptile'; rawIcon = $data1; rawPng = $data1 })
+            $deps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.MsixPackageDependencies]@{dependencyName = 'MsixTest_Dependency_Name'; publisher = 'MsixTest_Dependency_Publisher'; minVersion = '0.0.0.42' })   
+
+            $applicationGroup = New-AzWvdApplicationGroup -SubscriptionId $env.SubscriptionId `
+                                -ResourceGroupName $env.ResourceGroup `
+                                -Name $env.DesktopApplicationGroup `
+                                -Location $env.Location `
+                                -FriendlyName 'fri' `
+                                -Description 'des' `
+                                -HostPoolArmPath $env.HostPoolArmPath `
+                                -ApplicationGroupType 'Desktop'
+
+            $package_created_1 = New-AzWvdAppAttachPackage -Name "TestPackage" `
+                                -ImagePackageFullName 'AATest_FullName_UnitTest' `
+                                -ResourceGroupName $env.ResourceGroup `
+                                -SubscriptionId $env.SubscriptionId `
+                                -Location $env.Location `
+                                -ImageDisplayName 'UnitTest-MSIXPackage' `
+                                -ImagePath 'C:\\appattach\SingleMsix.vhd' `
+                                -ImageIsActive `
+                                -ImageIsRegularRegistration `
+                                -ImageLastUpdated '0001-01-01T00:00:00' `
+                                -ImagePackageApplication $apps `
+                                -ImagePackageDependency $deps `
+                                -ImagePackageFamilyName 'MsixUnitTest_FamilyName' `
+                                -ImagePackageName 'MsixUnitTest_Name' `
+                                -ImagePackageRelativePath 'MsixUnitTest_RelativePackageRoot' `
+                                -ImageVersion '0.0.18838.722' 
+
+            try { 
+                $package_created_1 | New-AzWvdApplication -GroupName $env.DesktopApplicationGroup `
+                    -Name UnitTest-MSIX-Application `
+                    -ResourceGroupName $env.ResourceGroup `
+                    -SubscriptionId $env.SubscriptionId `
+                    -ApplicationType 1 `
+                    -Description 'Unit Test MSIX Application' `
+                    -FriendlyName 'friendlyname'`
+                    -IconIndex 0
+                    -ErrorAction
+            }
+            catch {
+                $_.Exception.Message | Should -Be ("More than one application in the package " + $package_created_1.ImageFullName + ", please specify which one to use with the MsixPackageApplicationId parameter")
+            }
+
+        }
+        finally{
+            
+            $package = Remove-AzWvdAppAttachPackage -Name 'TestPackage' `
+                -ResourceGroupName $env.ResourceGroup `
+                -SubscriptionId $env.SubscriptionId 
+
+            $applicationGroup = Remove-AzWvdApplicationGroup -SubscriptionId $env.SubscriptionId `
+                                -ResourceGroupName $env.ResourceGroup `
+                                -Name $env.DesktopApplicationGroup
 
             $hostPool = Remove-AzWvdHostPool -SubscriptionId $env.SubscriptionId `
                                 -ResourceGroupName $env.ResourceGroup `

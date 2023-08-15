@@ -141,6 +141,12 @@ function New-AzWvdAppAttachPackage_Improved {
         # Relative Path to the package inside the image.
         ${PackageRelativePath},
 
+        [Parameter()]
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
+        [System.Management.Automation.SwitchParameter]
+        # Specifies if the package should be returned
+        ${PassThru},
+
         [Parameter(HelpMessage = 'List of object ids to remove permissions from the package')]
         [AllowEmptyCollection()]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
@@ -157,7 +163,7 @@ function New-AzWvdAppAttachPackage_Improved {
     
         [Parameter()]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
-        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Info(PossibleTypes=([Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api30.ITrackedResourceTags]))]
+        [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Runtime.Info(PossibleTypes = ([Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api30.ITrackedResourceTags]))]
         [System.Collections.Hashtable]
         # Resource tags.
         ${Tag},
@@ -220,56 +226,56 @@ function New-AzWvdAppAttachPackage_Improved {
     process {
 
         $savePermissionsToRemove = $null
-        if($PSBoundParameters.ContainsKey("PermissionsToRemove")) {
+        if ($PSBoundParameters.ContainsKey("PermissionsToRemove")) {
             $savePermissionsToRemove = $PSBoundParameters["PermissionsToRemove"]
         }
         $savePermissionsToAdd = $null
-        if($PSBoundParameters.ContainsKey("PermissionsToAdd")) {
+        if ($PSBoundParameters.ContainsKey("PermissionsToAdd")) {
             $savePermissionsToAdd = $PSBoundParameters["PermissionsToAdd"]
         }
 
         $finalParameters = @{}
         
-        if($PSBoundParameters.ContainsKey("CertificateExpiry")) {
+        if ($PSBoundParameters.ContainsKey("CertificateExpiry")) {
             $finalParameters.Add("ImageCertificateExpiry", $PSBoundParameters["CertificateExpiry"])
         }
-        if($PSBoundParameters.ContainsKey("CertificateName")) {
+        if ($PSBoundParameters.ContainsKey("CertificateName")) {
             $finalParameters.Add("ImageCertificateName", $PSBoundParameters["CertificateName"])
         }
-        if($PSBoundParameters.ContainsKey("DisplayName")) {
+        if ($PSBoundParameters.ContainsKey("DisplayName")) {
             $finalParameters.Add("ImageDisplayName", $PSBoundParameters["DisplayName"])
         }
-        if($PSBoundParameters.ContainsKey("IsActive")) {
+        if ($PSBoundParameters.ContainsKey("IsActive")) {
             $finalParameters.Add("ImageIsActive", $PSBoundParameters["IsActive"])
         }
-        if($PSBoundParameters.ContainsKey("LastUpdated")) {
+        if ($PSBoundParameters.ContainsKey("LastUpdated")) {
             $finalParameters.Add("ImageLastUpdated", $PSBoundParameters["LastUpdated"])
         }
-        if($PSBoundParameters.ContainsKey("PackageAlias")) {
+        if ($PSBoundParameters.ContainsKey("PackageAlias")) {
             $finalParameters.Add("ImagePackageAlias", $PSBoundParameters["PackageAlias"])
         }
-        if($PSBoundParameters.ContainsKey("PackageApplication")) {
+        if ($PSBoundParameters.ContainsKey("PackageApplication")) {
             $finalParameters.Add("ImagePackageApplication", $PSBoundParameters["PackageApplication"])
         }
-        if($PSBoundParameters.ContainsKey("PackageDependency")) {
+        if ($PSBoundParameters.ContainsKey("PackageDependency")) {
             $finalParameters.Add("ImagePackageDependency", $PSBoundParameters["PackageDependency"])
         }
-        if($PSBoundParameters.ContainsKey("PackageFamilyName")) {
+        if ($PSBoundParameters.ContainsKey("PackageFamilyName")) {
             $finalParameters.Add("ImagePackageFamilyName", $PSBoundParameters["PackageFamilyName"])
         }
-        if($PSBoundParameters.ContainsKey("PackageFullName")) {
+        if ($PSBoundParameters.ContainsKey("PackageFullName")) {
             $finalParameters.Add("ImagePackageFullName", $PSBoundParameters["PackageFullName"])
         }
-        if($PSBoundParameters.ContainsKey("PackageName")) {
+        if ($PSBoundParameters.ContainsKey("PackageName")) {
             $finalParameters.Add("ImagePackageName", $PSBoundParameters["PackageName"])
         }
-        if($PSBoundParameters.ContainsKey("PackageRelativePath")) {
+        if ($PSBoundParameters.ContainsKey("PackageRelativePath")) {
             $finalParameters.Add("ImagePackageRelativePath" , $PSBoundParameters["PackageRelativePath"])
         }
-        if($PSBoundParameters.ContainsKey("Version")) {
+        if ($PSBoundParameters.ContainsKey("Version")) {
             $finalParameters.Add("ImageVersion", $PSBoundParameters["Version"])
         }
-        if($PSBoundParameters.ContainsKey("IsLogonBlocking")) {
+        if ($PSBoundParameters.ContainsKey("IsLogonBlocking")) {
             $finalParameters.Add("ImageIsRegularRegistration", $PSBoundParameters["IsLogonBlocking"])
         }
         
@@ -300,12 +306,13 @@ function New-AzWvdAppAttachPackage_Improved {
         }
         $appAttachPackage = New-AzWvdAppAttachPackage @finalParameters
 
-        try {
-            [regex]$emailRegex = '^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$'
-            $potentialGuid = [System.Guid]::empty
-            if($null -ne $savePermissionsToRemove) {
-                foreach ($item in $savePermissionsToRemove) {                    
-                    if ([System.Guid]::TryParse($item,[System.Management.Automation.PSReference]$potentialGuid)) {
+        
+        [regex]$emailRegex = '^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$'
+        $potentialGuid = [System.Guid]::empty
+        if ($null -ne $savePermissionsToRemove) {
+            foreach ($item in $savePermissionsToRemove) { 
+                try {                   
+                    if ([System.Guid]::TryParse($item, [System.Management.Automation.PSReference]$potentialGuid)) {
                         $role = Get-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
                         if ($null -ne $role) {
                             Remove-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
@@ -326,11 +333,17 @@ function New-AzWvdAppAttachPackage_Improved {
                             Remove-AzRoleAssignment -ObjectId $group.Id -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
                         }
                     }
+
+                }
+                catch {
+                    Write-Error ("An exception occured removing permissions for $item, please manually check permissions: " + $_)
                 }
             }
-            if($null -ne $savePermissionsToAdd) {
-                foreach ($item in $savePermissionsToAdd) {
-                    if ([System.Guid]::TryParse($item,[System.Management.Automation.PSReference]$potentialGuid)) {
+        }
+        if ($null -ne $savePermissionsToAdd) {
+            foreach ($item in $savePermissionsToAdd) {
+                try {
+                    if ([System.Guid]::TryParse($item, [System.Management.Automation.PSReference]$potentialGuid)) {
                         $role = Get-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
                         if ($null -eq $role) {
                             New-AzRoleAssignment -ObjectId $item -RoleDefinitionName "Desktop Virtualization User" -Scope $appAttachPackage.Id
@@ -346,7 +359,8 @@ function New-AzWvdAppAttachPackage_Improved {
                     else {
                         $group = Get-MgGroup -Filter "DisplayName eq '$item'"
                         if ($null -ne $group) {
-                            if ($group.IsAssignableToRole -ne $false) { # this is a nullable field and at least some groups where this is null are assignable
+                            if ($group.IsAssignableToRole -ne $false) {
+                                # this is a nullable field and at least some groups where this is null are assignable
                                 $retryCount = 0
                                 $retryMax = 5
                                 $retryDelay = 2
@@ -378,11 +392,13 @@ function New-AzWvdAppAttachPackage_Improved {
                         }
                     }        
                 }
+                catch {
+                    Write-Error ("An exception occured adding permissions for $item, please manually check permissions: " + $_)
+                }
             }
         }
-        catch {
-            Write-Error ("An exception occured adjusting permissions, please manually check permissions: " + $_)
+        if ($PassThru) {
+            return $appAttachPackage
         }
-        return $appAttachPackage
     }
 }

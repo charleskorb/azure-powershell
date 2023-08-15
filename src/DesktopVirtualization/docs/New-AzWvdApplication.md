@@ -28,6 +28,14 @@ New-AzWvdApplication -AppAlias <String> -CommandLineSetting <CommandLineSetting>
  [-SubscriptionId <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
+### AppAttachPackage
+```
+New-AzWvdApplication [-AppAttachPackage] <IAppAttachPackage> -GroupName <String> -Name <String>
+ -ResourceGroupName <String> [-Description <String>] [-FriendlyName <String>] [-ShowInPortal]
+ [-SubscriptionId <String>] [-IconIndex <Int32>] [-IconPath <String>] [-MsixPackageApplicationId <String>]
+ [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
+```
+
 ## DESCRIPTION
 Create or update an application.
 
@@ -72,6 +80,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -AppAttachPackage
+To construct, see NOTES section for APPATTACHPACKAGE properties and create a hash table.
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.IAppAttachPackage
+Parameter Sets: AppAttachPackage
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### -ApplicationType
 Resource Type of Application.
 
@@ -107,7 +130,7 @@ Specifies whether this published application can be launched with command line a
 
 ```yaml
 Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Support.CommandLineSetting
-Parameter Sets: (All)
+Parameter Sets: AppAlias, CreateExpanded
 Aliases:
 
 Required: True
@@ -197,7 +220,7 @@ Index of the icon.
 
 ```yaml
 Type: System.Int32
-Parameter Sets: CreateExpanded
+Parameter Sets: AppAttachPackage, CreateExpanded
 Aliases:
 
 Required: False
@@ -212,7 +235,7 @@ Path to icon.
 
 ```yaml
 Type: System.String
-Parameter Sets: CreateExpanded
+Parameter Sets: AppAttachPackage, CreateExpanded
 Aliases:
 
 Required: False
@@ -227,7 +250,7 @@ Specifies the package application Id for MSIX applications
 
 ```yaml
 Type: System.String
-Parameter Sets: CreateExpanded
+Parameter Sets: AppAttachPackage, CreateExpanded
 Aliases:
 
 Required: False
@@ -349,6 +372,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.IAppAttachPackage
+
 ## OUTPUTS
 
 ### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.IApplication
@@ -356,6 +381,52 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ALIASES
+
+COMPLEX PARAMETER PROPERTIES
+
+To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
+
+
+APPATTACHPACKAGE <IAppAttachPackage>: 
+  - `Location <String>`: The geo-location where the resource lives
+  - `[Tag <ITrackedResourceTags>]`: Resource tags.
+    - `[(Any) <String>]`: This indicates any property can be added to this object.
+  - `[SystemDataCreatedAt <DateTime?>]`: The timestamp of resource creation (UTC).
+  - `[SystemDataCreatedBy <String>]`: The identity that created the resource.
+  - `[SystemDataCreatedByType <CreatedByType?>]`: The type of identity that created the resource.
+  - `[SystemDataLastModifiedAt <DateTime?>]`: The timestamp of resource last modification (UTC)
+  - `[SystemDataLastModifiedBy <String>]`: The identity that last modified the resource.
+  - `[SystemDataLastModifiedByType <CreatedByType?>]`: The type of identity that last modified the resource.
+  - `[FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure?>]`: Parameter indicating how the health check should behave if this package fails staging
+  - `[HostPoolReference <String[]>]`: List of Hostpool resource Ids.
+  - `[ImageCertificateExpiry <DateTime?>]`: Date certificate expires, found in the appxmanifest.xml. 
+  - `[ImageCertificateName <String>]`: Certificate name found in the appxmanifest.xml. 
+  - `[ImageDisplayName <String>]`: User friendly Name to be displayed in the portal. 
+  - `[ImageIsActive <Boolean?>]`: Make this version of the package the active one across the hostpool. 
+  - `[ImageIsPackageTimestamped <Boolean?>]`: Is package timestamped so it can ignore the certificate expiry date
+  - `[ImageIsRegularRegistration <Boolean?>]`: Specifies how to register Package in feed.
+  - `[ImageLastUpdated <DateTime?>]`: Date Package was last updated, found in the appxmanifest.xml. 
+  - `[ImagePackageAlias <String>]`: Alias of MSIX Package.
+  - `[ImagePackageApplication <IMsixPackageApplications[]>]`: List of package applications. 
+    - `[AppId <String>]`: Package Application Id, found in appxmanifest.xml.
+    - `[AppUserModelId <String>]`: Used to activate Package Application. Consists of Package Name and ApplicationID. Found in appxmanifest.xml.
+    - `[Description <String>]`: Description of Package Application.
+    - `[FriendlyName <String>]`: User friendly name.
+    - `[IconImageName <String>]`: User friendly name.
+    - `[IconIndexMaxValue <Int32?>]`: Maximum index of icons in the executable in the image
+    - `[RawIcon <Byte[]>]`: the icon a 64 bit string as a byte array.
+    - `[RawPng <Byte[]>]`: the icon a 64 bit string as a byte array.
+  - `[ImagePackageDependency <IMsixPackageDependencies[]>]`: List of package dependencies. 
+    - `[DependencyName <String>]`: Name of package dependency.
+    - `[MinVersion <String>]`: Dependency version required.
+    - `[Publisher <String>]`: Name of dependency publisher.
+  - `[ImagePackageFamilyName <String>]`: Package Family Name from appxmanifest.xml. Contains Package Name and Publisher name. 
+  - `[ImagePackageFullName <String>]`: Package Full Name from appxmanifest.xml. 
+  - `[ImagePackageName <String>]`: Package Name from appxmanifest.xml. 
+  - `[ImagePackageRelativePath <String>]`: Relative Path to the package inside the image. 
+  - `[ImagePath <String>]`: VHD/CIM image path on Network Share.
+  - `[ImageVersion <String>]`: Package Version found in the appxmanifest.xml. 
+  - `[KeyVaultUrl <String>]`: URL of keyvault location to store certificate
 
 ## RELATED LINKS
 
