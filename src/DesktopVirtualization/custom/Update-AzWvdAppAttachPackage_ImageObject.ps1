@@ -67,7 +67,7 @@ function Update-AzWvdAppAttachPackage_ImageObject {
         # Specifies how to register Package in feed.
         ${IsLogonBlocking},
     
-        [Parameter()]
+        [Parameter(DontShow)]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         # URL of keyvault location to store certificate

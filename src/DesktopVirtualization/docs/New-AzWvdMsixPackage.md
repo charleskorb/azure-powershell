@@ -16,7 +16,7 @@ Create or update a MSIX package.
 ```
 New-AzWvdMsixPackage -FullName <String> -HostPoolName <String> -ResourceGroupName <String>
  [-DisplayName <String>] [-ImagePath <String>] [-IsActive] [-IsRegularRegistration] [-SubscriptionId <String>]
- [-HostPoolReference <String[]>] [-LastUpdated <DateTime>] [-PackageApplication <IMsixPackageApplications[]>]
+ [-LastUpdated <DateTime>] [-PackageApplication <IMsixPackageApplications[]>]
  [-PackageDependency <IMsixPackageDependencies[]>] [-PackageFamilyName <String>] [-PackageName <String>]
  [-PackageRelativePath <String>] [-Version <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf]
  [<CommonParameters>]
@@ -131,21 +131,6 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -HostPoolReference
-List of Hostpool resource Ids.
-
-```yaml
-Type: System.String[]
-Parameter Sets: CreateExpanded
-Aliases:
-
-Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

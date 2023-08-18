@@ -73,7 +73,7 @@ function New-AzWvdAppAttachPackage_ImageObject {
         # Specifies if the package should be returned
         ${PassThru},
 
-        [Parameter()]
+        [Parameter(DontShow)]
         [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Category('Body')]
         [System.String]
         # URL of keyvault location to store certificate

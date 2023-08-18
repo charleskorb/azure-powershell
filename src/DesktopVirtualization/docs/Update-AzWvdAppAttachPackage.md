@@ -34,8 +34,8 @@ Update-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -Locatio
 Update-AzWvdAppAttachPackage [-ImageObjects] <ExpandMsixImage[]> -Name <String> -ResourceGroupName <String>
  -Location <String> [-SubscriptionId <String>] [-DisplayName <String>]
  [-FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure>] [-HostPoolReference <String[]>]
- [-IsActive] [-IsLogonBlocking] [-KeyVaultUrl <String>] [-PassThru] [-PermissionsToAdd <String[]>]
- [-PermissionsToRemove <String[]>] [-Tag <Hashtable>] [-DefaultProfile <PSObject>] [<CommonParameters>]
+ [-IsActive] [-IsLogonBlocking] [-PassThru] [-PermissionsToAdd <String[]>] [-PermissionsToRemove <String[]>]
+ [-Tag <Hashtable>] [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
 ### Improved
@@ -43,7 +43,7 @@ Update-AzWvdAppAttachPackage [-ImageObjects] <ExpandMsixImage[]> -Name <String> 
 Update-AzWvdAppAttachPackage -Name <String> -ResourceGroupName <String> -Location <String>
  [-SubscriptionId <String>] [-CertificateExpiry <DateTime>] [-CertificateName <String>]
  [-DisplayName <String>] [-FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure>]
- [-HostPoolReference <String[]>] [-ImagePath <String>] [-IsActive] [-IsLogonBlocking] [-KeyVaultUrl <String>]
+ [-HostPoolReference <String[]>] [-ImagePath <String>] [-IsActive] [-IsLogonBlocking]
  [-LastUpdated <DateTime>] [-PackageAlias <String>] [-PackageApplication <IMsixPackageApplications[]>]
  [-PackageDependency <IMsixPackageDependencies[]>] [-PackageFamilyName <String>] [-PackageFullName <String>]
  [-PackageName <String>] [-PackageRelativePath <String>] [-PassThru] [-PermissionsToAdd <String[]>]

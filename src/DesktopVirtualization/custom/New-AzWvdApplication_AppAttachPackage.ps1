@@ -136,8 +136,6 @@ process {
         $finalParameters.Add($key, $PSBoundParameters[$key])
     }
 
-    write-host $finalParameters
-
     return New-AzWvdApplication @finalParameters
 }
 
