@@ -178,7 +178,7 @@ function New-AzWvdAppAttachPackage_ImageObject {
             if ($x64Count -lt 1 -and $NeutralCount -eq 0) {
                 throw "No x64 images found in provided list, please provide a specific image to create a package object"
             }
-            else {
+            elseif ($x64Count -lt 1 -and $NeutralCount -eq 1) {
                 $ImageObject = $NeutralImage
             }
         }

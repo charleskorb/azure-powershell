@@ -65,6 +65,9 @@ Get a userSession.
 ### [Get-AzWvdWorkspace](Get-AzWvdWorkspace.md)
 Get a workspace.
 
+### [Import-AzWvdAppAttachPackageInformation](Import-AzWvdAppAttachPackageInformation.md)
+Gets information from a package given the path to the package.
+
 ### [New-AzWvdAppAttachPackage](New-AzWvdAppAttachPackage.md)
 Create or update an App Attach package.
 
