@@ -127,7 +127,7 @@ process {
     $finalParameters.Add("MsixPackageFamilyName", $AppAttachPackage.ImagePackageFamilyName);
     $finalParameters.Add("CommandLineSetting", "DoNotAllow");
     if ($AppAttachPackage.ImagePackageApplication.Count -gt 1 -and $null -eq $MsixPackageApplicationId) {
-        Write-Error ("More than one application in the package " + $AppAttachPackage.ImageFullName + ", please specify which one to use with the MsixPackageApplicationId parameter")
+        throw ("More than one application in the package " + $AppAttachPackage.ImagePackageFullName + ", please specify which one to use with the MsixPackageApplicationId parameter")
     } else {
         $finalParameters.Add("MsixPackageApplicationId", $AppAttachPackage.ImagePackageApplication[0].AppId);
     }

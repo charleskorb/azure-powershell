@@ -24,12 +24,6 @@ Remove-AzWvdAppAttachPackage -InputObject <IDesktopVirtualizationIdentity> [-For
  [-DefaultProfile <PSObject>] [-PassThru] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
-### Improved
-```
-Remove-AzWvdAppAttachPackage [-PackageToRemove] <AppAttachPackage> [-DefaultProfile <PSObject>]
- [<CommonParameters>]
-```
-
 ## DESCRIPTION
 Remove an App Attach Package.
 
@@ -71,7 +65,7 @@ Force flag to delete App Attach package.
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
-Parameter Sets: Delete, DeleteViaIdentity
+Parameter Sets: (All)
 Aliases:
 
 Required: False
@@ -112,28 +106,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -PackageToRemove
-App Attach Package to be Removed
-To construct, see NOTES section for PACKAGETOREMOVE properties and create a hash table.
-
-```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.AppAttachPackage
-Parameter Sets: Improved
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -PassThru
 Returns true when the command succeeds
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
-Parameter Sets: Delete, DeleteViaIdentity
+Parameter Sets: (All)
 Aliases:
 
 Required: False
@@ -210,8 +188,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20220901Privatepreview.AppAttachPackage
-
 ### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.IDesktopVirtualizationIdentity
 
 ## OUTPUTS
@@ -243,47 +219,6 @@ INPUTOBJECT <IDesktopVirtualizationIdentity>: Identity Parameter
   - `[SubscriptionId <String>]`: The ID of the target subscription.
   - `[UserSessionId <String>]`: The name of the user session within the specified session host
   - `[WorkspaceName <String>]`: The name of the workspace
-
-PACKAGETOREMOVE <AppAttachPackage>: App Attach Package to be Removed
-  - `Location <String>`: The geo-location where the resource lives
-  - `[FailHealthCheckOnStagingFailure <FailHealthCheckOnStagingFailure?>]`: Parameter indicating how the health check should behave if this package fails staging
-  - `[HostPoolReference <String[]>]`: List of Hostpool resource Ids.
-  - `[ImageCertificateExpiry <DateTime?>]`: Date certificate expires, found in the appxmanifest.xml. 
-  - `[ImageCertificateName <String>]`: Certificate name found in the appxmanifest.xml. 
-  - `[ImageDisplayName <String>]`: User friendly Name to be displayed in the portal. 
-  - `[ImageIsActive <Boolean?>]`: Make this version of the package the active one across the hostpool. 
-  - `[ImageIsPackageTimestamped <Boolean?>]`: Is package timestamped so it can ignore the certificate expiry date
-  - `[ImageIsRegularRegistration <Boolean?>]`: Specifies how to register Package in feed.
-  - `[ImageLastUpdated <DateTime?>]`: Date Package was last updated, found in the appxmanifest.xml. 
-  - `[ImagePackageAlias <String>]`: Alias of MSIX Package.
-  - `[ImagePackageApplication <IMsixPackageApplications[]>]`: List of package applications. 
-    - `[AppId <String>]`: Package Application Id, found in appxmanifest.xml.
-    - `[AppUserModelId <String>]`: Used to activate Package Application. Consists of Package Name and ApplicationID. Found in appxmanifest.xml.
-    - `[Description <String>]`: Description of Package Application.
-    - `[FriendlyName <String>]`: User friendly name.
-    - `[IconImageName <String>]`: User friendly name.
-    - `[IconIndexMaxValue <Int32?>]`: Maximum index of icons in the executable in the image
-    - `[RawIcon <Byte[]>]`: the icon a 64 bit string as a byte array.
-    - `[RawPng <Byte[]>]`: the icon a 64 bit string as a byte array.
-  - `[ImagePackageDependency <IMsixPackageDependencies[]>]`: List of package dependencies. 
-    - `[DependencyName <String>]`: Name of package dependency.
-    - `[MinVersion <String>]`: Dependency version required.
-    - `[Publisher <String>]`: Name of dependency publisher.
-  - `[ImagePackageFamilyName <String>]`: Package Family Name from appxmanifest.xml. Contains Package Name and Publisher name. 
-  - `[ImagePackageFullName <String>]`: Package Full Name from appxmanifest.xml. 
-  - `[ImagePackageName <String>]`: Package Name from appxmanifest.xml. 
-  - `[ImagePackageRelativePath <String>]`: Relative Path to the package inside the image. 
-  - `[ImagePath <String>]`: VHD/CIM image path on Network Share.
-  - `[ImageVersion <String>]`: Package Version found in the appxmanifest.xml. 
-  - `[KeyVaultUrl <String>]`: URL of keyvault location to store certificate
-  - `[Tag <ITrackedResourceTags>]`: Resource tags.
-    - `[(Any) <String>]`: This indicates any property can be added to this object.
-  - `[SystemDataCreatedAt <DateTime?>]`: The timestamp of resource creation (UTC).
-  - `[SystemDataCreatedBy <String>]`: The identity that created the resource.
-  - `[SystemDataCreatedByType <CreatedByType?>]`: The type of identity that created the resource.
-  - `[SystemDataLastModifiedAt <DateTime?>]`: The timestamp of resource last modification (UTC)
-  - `[SystemDataLastModifiedBy <String>]`: The identity that last modified the resource.
-  - `[SystemDataLastModifiedByType <CreatedByType?>]`: The type of identity that last modified the resource.
 
 ## RELATED LINKS
 
