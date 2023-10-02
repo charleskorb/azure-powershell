@@ -993,8 +993,8 @@ To create the parameters described below, construct a hash table containing the 
 
 
 IMAGEOBJECTS <ExpandMsixImage[]>: 
-  - `[CertificateExpiry <DateTime?>]`: Date certificate expires, found in the appxmanifest.xml. 
-  - `[CertificateName <String>]`: Certificate name found in the appxmanifest.xml. 
+  - `[CertificateExpiry <DateTime?>]`: Date certificate expires, found in the appxmanifest.xml.
+  - `[CertificateName <String>]`: Certificate name found in the appxmanifest.xml.
   - `[DisplayName <String>]`: User friendly Name to be displayed in the portal. 
   - `[ImagePath <String>]`: VHD/CIM image path on Network Share.
   - `[IsActive <Boolean?>]`: Make this version of the package the active one across the hostpool. 
